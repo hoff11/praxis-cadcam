@@ -1,5 +1,6 @@
 # CMake build output (root-level build tree)
 /build/
+/engine/build/
 CMakeCache.txt
 CMakeFiles/
 CTestTestfile.cmake
@@ -39,3 +40,6 @@ node_modules/
 Thumbs.db
 *.swp
 .vscode/settings.json
+
+# Non-canonical duplicate mirror kept out of initial repo history
+/praxis-cadcam-contracts/
