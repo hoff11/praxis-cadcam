@@ -1,0 +1,32 @@
+{
+  "recipe_version": "0.1",
+  "id": "inches_fragment",
+  "units": "inches",
+  
+  "params": {
+    "size": {
+      "default_value": 10,
+      "min_value": 1,
+      "max_value": 50,
+      "description": "Size in inches"
+    }
+  },
+  
+  "derived": {},
+  
+  "nodes": [
+    {
+      "id": "inch_box",
+      "description": "Box in inches",
+      "op": "make_box",
+      "args": {
+        "dx": "size",
+        "dy": "size",
+        "dz": "size"
+      },
+      "binding": {
+        "body": "base"
+      }
+    }
+  ]
+}

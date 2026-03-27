@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "op_hash": "abc1234567890123456789012345678901234567890123456789012345678901",
+  "engine_version": "0.6.0",
+  "kernel_version": "7.6.3",
+  "created_at": "",
+  "producer": "praxis-engine",
+  "outputs": [
+    {
+      "name": "out",
+      "filename": "out.step",
+      "bytes": 62,
+      "sha256": "26bc00aab228090c3200c04badb0b00620df848f2fef515cd61dff8a07e85a7c",
+      "type": "",
+      "previewable": false,
+      "semantic_type": ""
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "recipe_version": "0.1",
+  "id": "base_plate_fragment",
+  "units": "mm",
+  
+  "params": {
+    "plate_width": {
+      "default_value": 1000,
+      "min_value": 400,
+      "max_value": 2000,
+      "description": "Base plate width"
+    },
+    "plate_depth": {
+      "default_value": 800,
+      "min_value": 400,
+      "max_value": 2000,
+      "description": "Base plate depth"
+    },
+    "plate_height": {
+      "default_value": 200,
+      "min_value": 100,
+      "max_value": 500,
+      "description": "Base plate height"
+    }
+  },
+  
+  "derived": {},
+  
+  "nodes": [
+    {
+      "id": "base_plate",
+      "description": "Base mounting plate",
+      "op": "make_box",
+      "args": {
+        "dx": "plate_width",
+        "dy": "plate_depth",
+        "dz": "plate_height"
+      },
+      "binding": {
+        "body": "base"
+      }
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://praxis.cadcam/schemas/machine-definition/v1.0.0",
+  "title": "Machine Definition",
+  "description": "Authoritative engineering machine-definition contract authored by praxis-cadcam.",
+  "type": "object",
+  "required": [
+    "machineId",
+    "machineVersion",
+    "displayName",
+    "class",
+    "units",
+    "kinematics"
+  ],
+  "properties": {
+    "machineId": {
+      "type": "string",
+      "pattern": "^[a-z0-9\\-]+$"
+    },
+    "machineVersion": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "displayName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "class": {
+      "type": "string",
+      "enum": [
+        "3axis-vmc",
+        "4axis-vmc",
+        "5axis-table-table",
+        "5axis-head-table",
+        "turn-mill",
+        "custom"
+      ]
+    },
+    "units": {
+      "type": "string",
+      "enum": ["mm", "inch"]
+    },
+    "geometry": {
+      "type": "object",
+      "properties": {
+        "stepAsset": {
+          "type": "string",
+          "minLength": 1
+        },
+        "stlAsset": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "kinematics": {
+      "type": "object",
+      "required": ["pkmAsset", "axes"],
+      "properties": {
+        "pkmAsset": {
+          "type": "string",
+          "minLength": 1
+        },
+        "axes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["name", "type"],
+            "properties": {
+              "name": {
+                "type": "string",
+                "pattern": "^[A-Z][A-Z0-9_]*$"
+              },
+              "type": {
+                "type": "string",
+                "enum": ["linear", "rotary"]
+              },
+              "limits": {
+                "type": "object",
+                "properties": {
+                  "min": {"type": "number"},
+                  "max": {"type": "number"}
+                },
+                "required": ["min", "max"],
+                "additionalProperties": false
+              },
+              "maxFeedRate": {
+                "type": "number"
+              },
+              "maxRapidRate": {
+                "type": "number"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "vendor": {"type": "string"},
+        "model": {"type": "string"},
+        "notes": {"type": "string"}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

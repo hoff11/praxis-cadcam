@@ -1,0 +1,18 @@
+{
+  "plan_id": "negative_size_test",
+  "steps": [
+    {
+      "args": {
+        "size_x": "-10",
+        "size_y": "10",
+        "size_z": "10",
+        "tx": "0",
+        "ty": "0",
+        "tz": "0"
+      },
+      "op_type": "CreateBox"
+    }
+  ],
+  "units": "mm",
+  "version": 1
+}

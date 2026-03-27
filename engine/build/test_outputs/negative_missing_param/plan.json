@@ -1,0 +1,15 @@
+{
+  "plan_id": "missing_param_test",
+  "steps": [
+    {
+      "args": {
+        "tx": "0",
+        "ty": "0",
+        "tz": "0"
+      },
+      "op_type": "CreateBox"
+    }
+  ],
+  "units": "mm",
+  "version": 1
+}

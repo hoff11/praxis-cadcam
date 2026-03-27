@@ -1,0 +1,47 @@
+{
+  "recipe_version": "0.1",
+  "id": "parametric_box_test",
+  "units": "mm",
+  "params": {
+    "base_width": {
+      "name": "base_width",
+      "default_value": 100.0,
+      "min_value": 50.0,
+      "max_value": 500.0,
+      "description": "Base box width"
+    },
+    "multiplier": {
+      "name": "multiplier",
+      "default_value": 2.0,
+      "min_value": 1.0,
+      "max_value": 5.0,
+      "description": "Size multiplier"
+    }
+  },
+  "derived": {
+    "computed_height": "base_width * multiplier",
+    "computed_depth": "(base_width + 50) * multiplier"
+  },
+  "nodes": [
+    {
+      "id": "base_box",
+      "op": "make_box",
+      "args": {
+        "dx": 100.0,
+        "dy": 200.0,
+        "dz": 300.0
+      },
+      "binding": {
+        "body": "base"
+      },
+      "description": "Test box with derived dimensions"
+    }
+  ],
+  "variants": {},
+  "kinematics": "../test_machine.pkm",
+  "output": "base_box",
+  "metadata": {
+    "author": "Praxis Sprint 2",
+    "description": "Test recipe with derived value expressions"
+  }
+}

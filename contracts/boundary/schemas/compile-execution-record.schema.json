@@ -1,0 +1,143 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://praxis.cadcam/schemas/compile-execution-record/v0.1.0",
+  "title": "Compile Execution Record",
+  "description": "Canonical mirror of compiler runtime evidence shape. Cadcam references this contract and does not define a competing structure.",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "executionId",
+    "timestamp",
+    "deploymentCompilerIdentityRef",
+    "praxisCoreVersion",
+    "input",
+    "resolvedContext",
+    "result",
+    "provenance"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "compile_execution_record.v0.1"
+    },
+    "executionId": {
+      "type": "string",
+      "description": "Unique execution identifier (UUID recommended)."
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "deploymentCompilerIdentityRef": {
+      "type": "object",
+      "required": ["identityId", "version"],
+      "properties": {
+        "identityId": { "type": "string" },
+        "version": { "type": "string" },
+        "digest": { "type": "string", "description": "Optional checksum for frozen identity payload." }
+      },
+      "additionalProperties": false
+    },
+    "praxisCoreVersion": {
+      "type": "string",
+      "description": "Praxis Core version used for this execution."
+    },
+    "input": {
+      "type": "object",
+      "required": ["requestId", "ir"],
+      "properties": {
+        "requestId": { "type": "string" },
+        "ir": {
+          "type": "object",
+          "required": ["ref", "sha256"],
+          "properties": {
+            "ref": { "type": "string", "description": "IR object reference/location." },
+            "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+          },
+          "additionalProperties": false
+        },
+        "requestMetadata": {
+          "type": "object",
+          "description": "Optional request metadata (tenant, operator, correlation, etc.)."
+        }
+      },
+      "additionalProperties": false
+    },
+    "resolvedContext": {
+      "type": "object",
+      "required": ["machineProfileRef", "policyRef"],
+      "properties": {
+        "machineProfileRef": { "type": "string" },
+        "policyRef": { "type": "string" },
+        "overrideRef": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "result": {
+      "type": "object",
+      "required": ["status", "emittedArtifacts", "diagnostics"],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["success", "failure"]
+        },
+        "emittedArtifacts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["kind", "ref", "sha256"],
+            "properties": {
+              "kind": {
+                "type": "string",
+                "enum": ["native_code", "trace", "output_artifact", "other"]
+              },
+              "ref": { "type": "string" },
+              "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "diagnostics": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["severity", "code", "message"],
+            "properties": {
+              "severity": {
+                "type": "string",
+                "enum": ["error", "warning", "info", "note"]
+              },
+              "code": { "type": "string" },
+              "message": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["startedAt", "completedAt", "actor", "system"],
+      "properties": {
+        "startedAt": { "type": "string", "format": "date-time" },
+        "completedAt": { "type": "string", "format": "date-time" },
+        "actor": { "type": "string" },
+        "system": { "type": "string" },
+        "runEnvironment": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "trace": {
+      "type": "object",
+      "description": "Optional detailed decision trail.",
+      "properties": {
+        "included": { "type": "boolean" },
+        "ref": { "type": "string" },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

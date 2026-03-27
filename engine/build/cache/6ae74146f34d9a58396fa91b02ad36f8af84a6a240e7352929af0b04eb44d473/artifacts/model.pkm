@@ -1,0 +1,37 @@
+{
+  "pkm_version": "0.1",
+  "machine": "vmc_3axis_generic",
+  "units": "mm",
+  "bodies": ["base", "x_carriage", "y_carriage", "z_column", "spindle_head"],
+  "joints": [
+    {
+      "id": "X",
+      "type": "prismatic",
+      "parent_body": "base",
+      "child_body": "x_carriage",
+      "axis_origin": [0, 0, 0],
+      "axis_direction": [1, 0, 0],
+      "limits": [0, 2000]
+    },
+    {
+      "id": "Y",
+      "type": "prismatic",
+      "parent_body": "x_carriage",
+      "child_body": "y_carriage",
+      "axis_origin": [0, 0, 0],
+      "axis_direction": [0, 1, 0],
+      "limits": [0, 2000]
+    },
+    {
+      "id": "Z",
+      "type": "prismatic",
+      "parent_body": "z_column",
+      "child_body": "spindle_head",
+      "axis_origin": [0, 0, 0],
+      "axis_direction": [0, 0, 1],
+      "limits": [0, 2000]
+    }
+  ],
+  "chain": ["X", "Y", "Z"],
+  "frames": {}
+}

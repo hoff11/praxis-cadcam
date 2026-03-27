@@ -1,0 +1,21 @@
+# Build artifacts
+CMakeCache.txt
+CMakeFiles/
+CTestTestfile.cmake
+Makefile
+cmake_install.cmake
+compile_commands.json
+_deps/
+*.o
+*.o.d
+praxis-cad
+
+# Test output (use scratch/ for ephemeral test data)
+scratch/
+test_cache_dir/
+test_cache_flags_dir/
+test_cache_flags_out*/
+test_cache_out*/
+test_perbody/
+test_quick/
+test_v2/

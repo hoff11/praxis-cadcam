@@ -1,0 +1,176 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://praxis.cadcam/schemas/capability-profile/v1.0.0",
+  "title": "Capability Profile",
+  "description": "Compiler-consumable machine capability profile exported from praxis-cadcam machine definitions.",
+  "type": "object",
+  "required": [
+    "capabilityId",
+    "capabilityVersion",
+    "machineCapabilityId",
+    "machineDefinitionRef",
+    "axes"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Canonical capability identity alias for compatibility; must equal capabilityId in exported artifacts.",
+      "pattern": "^[a-z0-9\\-]+$"
+    },
+    "machineCapabilityId": {
+      "type": "string",
+      "description": "Compiler lookup alias. Canonical mapping is machineCapabilityId = capabilityId unless policy explicitly requires version-qualified lookup.",
+      "pattern": "^[a-z0-9\\-]+$"
+    },
+    "capabilityId": {
+      "type": "string",
+      "description": "Stable capability profile identity used for compiler lookup.",
+      "pattern": "^[a-z0-9\\-]+$"
+    },
+    "capabilityVersion": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "version": {
+      "type": "string",
+      "description": "Compatibility alias only. Exporters should keep it equal to capabilityVersion.",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "machineDefinitionRef": {
+      "type": "object",
+      "required": ["machineId", "machineVersion"],
+      "properties": {
+        "machineId": {
+          "type": "string",
+          "pattern": "^[a-z0-9\\-]+$"
+        },
+        "machineVersion": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$"
+        }
+      },
+      "additionalProperties": false
+    },
+    "controllerCompatibility": {
+      "type": "object",
+      "description": "Controller and dialect families this capability can support, without pinning deployment-specific controller base identity.",
+      "properties": {
+        "supportedDialects": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["fanuc", "siemens", "haas", "heidenhain", "other"]
+          },
+          "minItems": 1
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "nativeFormat": {
+      "type": "string",
+      "enum": ["gcode", "gcode-metric", "gcode-inch", "apt", "other"]
+    },
+    "axes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Z][A-Z0-9_]*$"
+      }
+    },
+    "limits": {
+      "type": "object",
+      "properties": {
+        "maxFeedRate": {"type": "number"},
+        "maxSpindleRpm": {"type": "number"},
+        "workEnvelope": {
+          "type": "object",
+          "properties": {
+            "x": {"type": "number"},
+            "y": {"type": "number"},
+            "z": {"type": "number"}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "capabilities": {
+      "type": "object",
+      "properties": {
+        "interpolationModes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["linear", "circular", "spline", "helical"]
+          }
+        },
+        "supportsDrillingCycleExpansion": {"type": "boolean"},
+        "supportsToolLengthComp": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    },
+    "constraints": {
+      "type": "object",
+      "properties": {
+        "forbidDynamicFeedOverride": {"type": "boolean"},
+        "rotaryAxes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Z][A-Z0-9_]*$"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "compilerMapping": {
+      "type": "object",
+      "description": "Optional explicit mapping to compiler request fields. When omitted, canonical mapping rules apply.",
+      "properties": {
+        "machineCapabilityId": {
+          "type": "string",
+          "pattern": "^[a-z0-9\\-]+$"
+        },
+        "targetSelection": {
+          "type": "object",
+          "properties": {
+            "machineProfile": {
+              "type": "object",
+              "required": ["id", "version"],
+              "properties": {
+                "id": {"type": "string", "pattern": "^[a-z0-9\\-]+$"},
+                "version": {"type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$"}
+              },
+              "additionalProperties": false
+            },
+            "policyPack": {
+              "type": "object",
+              "required": ["id", "version"],
+              "properties": {
+                "id": {"type": "string", "pattern": "^[a-z0-9\\-]+$"},
+                "version": {"type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$"}
+              },
+              "additionalProperties": false
+            },
+            "controllerBase": {
+              "type": "object",
+              "required": ["id", "version"],
+              "properties": {
+                "id": {"type": "string", "pattern": "^[a-z0-9\\-]+$"},
+                "version": {"type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$"}
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

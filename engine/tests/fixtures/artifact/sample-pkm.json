@@ -1,0 +1,44 @@
+{
+  "pkm_version": "0.2",
+  "machine": "fanuc-3x-vmc",
+  "units": "mm",
+  "bodies": ["base", "saddle", "table", "spindle"],
+  "joints": [
+    {
+      "id": "x",
+      "type": "prismatic",
+      "parent_body": "base",
+      "child_body": "saddle",
+      "axis_origin": [0, 0, 0],
+      "axis_direction": [1, 0, 0],
+      "limits": {"min": 0, "max": 800}
+    },
+    {
+      "id": "y",
+      "type": "prismatic",
+      "parent_body": "saddle",
+      "child_body": "table",
+      "axis_origin": [0, 0, 0],
+      "axis_direction": [0, 1, 0],
+      "limits": {"min": 0, "max": 600}
+    },
+    {
+      "id": "z",
+      "type": "prismatic",
+      "parent_body": "table",
+      "child_body": "spindle",
+      "axis_origin": [0, 0, 0],
+      "axis_direction": [0, 0, 1],
+      "limits": {"min": 0, "max": 500}
+    }
+  ],
+  "chain": ["x", "y", "z"],
+  "frames": {
+    "machine": {
+      "origin": [0, 0, 0],
+      "x_axis": [1, 0, 0],
+      "y_axis": [0, 1, 0],
+      "z_axis": [0, 0, 1]
+    }
+  }
+}

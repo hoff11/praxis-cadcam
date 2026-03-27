@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "1.0",
+  "machineId": "semantic-md-invalid",
+  "machineName": "Semantic Invalid Machine Definition",
+  "units": "mm",
+  "source": {
+    "inputType": "pkm",
+    "inputPath": "/tmp/semantic-md-invalid.json",
+    "pkmVersion": "0.2"
+  },
+  "kinematics": {
+    "pkmVersion": "0.2",
+    "bodies": ["base", "table"],
+    "joints": [
+      {
+        "id": "x",
+        "type": "prismatic",
+        "parentBody": "base",
+        "childBody": "table",
+        "axisOrigin": [0, 0, 0],
+        "axisDirection": [1, 0, 0],
+        "limits": {"min": 0, "max": 500}
+      }
+    ],
+    "chain": [],
+    "frames": [
+      {
+        "name": "machine",
+        "origin": [0, 0, 0],
+        "xAxis": [1, 0, 0],
+        "yAxis": [0, 1, 0],
+        "zAxis": [0, 0, 1]
+      }
+    ]
+  }
+}

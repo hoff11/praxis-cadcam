@@ -1,0 +1,41 @@
+# CMake build output (root-level build tree)
+/build/
+CMakeCache.txt
+CMakeFiles/
+CTestTestfile.cmake
+Makefile
+cmake_install.cmake
+compile_commands.json
+_deps/
+
+# Compiled binaries
+praxis-cad
+praxis-cadcam
+praxis-cadcam-cli
+*.o
+*.o.d
+*.a
+*.so
+*.out
+
+# Ephemeral test artefacts at repo root
+test_machine.pkm
+test_cache_dir/
+test_cache_flags_dir/
+test_cache_flags_out*/
+test_cache_out*/
+test_iteration_order/
+test_perbody/
+test_quick/
+test_v2/
+test_run*/
+
+# Node / npm artifacts (in quarantined TS packages)
+node_modules/
+**/node_modules/
+
+# Editor / OS noise
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/settings.json

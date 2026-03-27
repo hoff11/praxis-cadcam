@@ -1,0 +1,53 @@
+{
+  "recipe_version": "0.1",
+  "id": "simple_composed",
+  "units": "mm",
+  
+  "includes": [
+    {
+      "recipe_path": "base_plate.json",
+      "param_overrides": {
+        "plate_width": 1500,
+        "plate_depth": 1000
+      }
+    }
+  ],
+  
+  "params": {
+    "column_height": {
+      "default_value": 800,
+      "min_value": 400,
+      "max_value": 1500,
+      "description": "Column height"
+    }
+  },
+  
+  "derived": {},
+  
+  "nodes": [
+    {
+      "id": "column",
+      "description": "Vertical column",
+      "op": "make_box",
+      "args": {
+        "dx": 300,
+        "dy": 300,
+        "dz": "column_height"
+      },
+      "binding": {
+        "body": "z_axis"
+      }
+    },
+    {
+      "id": "assembly",
+      "description": "Combine base and column",
+      "op": "make_compound",
+      "args": {
+        "inputs": ["base_plate", "column"]
+      }
+    }
+  ],
+  
+  "kinematics": "../vmc/vmc_3axis.pkm",
+  "output": "assembly"
+}

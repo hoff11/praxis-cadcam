@@ -1,0 +1,46 @@
+{
+  "recipe_version": "0.1",
+  "id": "transform_test",
+  "units": "mm",
+  "params": {},
+  "derived": {},
+  "nodes": [
+    {
+      "id": "box1",
+      "op": "make_box",
+      "args": {
+        "dx": 100.0,
+        "dy": 100.0,
+        "dz": 100.0
+      },
+      "binding": {
+        "body": "base"
+      },
+      "description": "Base box"
+    },
+    {
+      "id": "box1_moved",
+      "op": "transform",
+      "args": {
+        "input": "box1",
+        "tx": 50.0,
+        "ty": 0.0,
+        "tz": 0.0,
+        "rx": 0.0,
+        "ry": 0.0,
+        "rz": 0.0
+      },
+      "binding": {
+        "body": "base"
+      },
+      "description": "Transform the box"
+    }
+  ],
+  "variants": {},
+  "kinematics": "../test_machine.pkm",
+  "output": "box1_moved",
+  "metadata": {
+    "author": "Test",
+    "description": "Test transform with input field"
+  }
+}

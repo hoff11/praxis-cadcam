@@ -1,0 +1,199 @@
+{
+  "recipe_version": "0.1",
+  "id": "basic_3axis_mill_v1",
+  "units": "mm",
+  "params": {
+    "travel_x": {
+      "name": "travel_x",
+      "default_value": 500.0,
+      "min_value": 100.0,
+      "max_value": 1200.0,
+      "description": "X-axis travel in mm"
+    },
+    "travel_y": {
+      "name": "travel_y",
+      "default_value": 400.0,
+      "min_value": 100.0,
+      "max_value": 1000.0,
+      "description": "Y-axis travel in mm"
+    },
+    "travel_z": {
+      "name": "travel_z",
+      "default_value": 400.0,
+      "min_value": 100.0,
+      "max_value": 1000.0,
+      "description": "Z-axis travel in mm"
+    }
+  },
+  "nodes": [
+    {
+      "id": "machine_base_box",
+      "op": "make_box",
+      "args": { "dx": 1800.0, "dy": 1400.0, "dz": 500.0 },
+      "binding": { "body": "machine_base" },
+      "description": "Base casting"
+    },
+    {
+      "id": "machine_base",
+      "op": "transform",
+      "args": {
+        "input": "machine_base_box",
+        "tx": 0.0,
+        "ty": 0.0,
+        "tz": 0.0,
+        "rx": 0.0,
+        "ry": 0.0,
+        "rz": 0.0
+      },
+      "binding": { "body": "machine_base" },
+      "description": "Machine base at world origin"
+    },
+    {
+      "id": "column_box",
+      "op": "make_box",
+      "args": { "dx": 600.0, "dy": 500.0, "dz": 1800.0 },
+      "binding": { "body": "column" },
+      "description": "Column structure"
+    },
+    {
+      "id": "column",
+      "op": "transform",
+      "args": {
+        "input": "column_box",
+        "tx": 600.0,
+        "ty": 900.0,
+        "tz": 500.0,
+        "rx": 0.0,
+        "ry": 0.0,
+        "rz": 0.0
+      },
+      "binding": { "body": "column" },
+      "description": "Column at rear-right of base"
+    },
+    {
+      "id": "x_saddle_box",
+      "op": "make_box",
+      "args": { "dx": 700.0, "dy": 300.0, "dz": 160.0 },
+      "binding": { "body": "x_saddle" },
+      "description": "X-axis saddle"
+    },
+    {
+      "id": "x_saddle",
+      "op": "transform",
+      "args": {
+        "input": "x_saddle_box",
+        "tx": 100.0,
+        "ty": 550.0,
+        "tz": 500.0,
+        "rx": 0.0,
+        "ry": 0.0,
+        "rz": 0.0
+      },
+      "binding": { "body": "x_saddle" },
+      "description": "X saddle at home position"
+    },
+    {
+      "id": "work_table_box",
+      "op": "make_box",
+      "args": { "dx": 650.0, "dy": 350.0, "dz": 120.0 },
+      "binding": { "body": "work_table" },
+      "description": "Work table"
+    },
+    {
+      "id": "work_table",
+      "op": "transform",
+      "args": {
+        "input": "work_table_box",
+        "tx": 125.0,
+        "ty": 525.0,
+        "tz": 660.0,
+        "rx": 0.0,
+        "ry": 0.0,
+        "rz": 0.0
+      },
+      "binding": { "body": "work_table" },
+      "description": "Table at home position"
+    },
+    {
+      "id": "z_head_box",
+      "op": "make_box",
+      "args": { "dx": 500.0, "dy": 450.0, "dz": 480.0 },
+      "binding": { "body": "z_head" },
+      "description": "Z head housing"
+    },
+    {
+      "id": "z_head",
+      "op": "transform",
+      "args": {
+        "input": "z_head_box",
+        "tx": 625.0,
+        "ty": 430.0,
+        "tz": 1700.0,
+        "rx": 0.0,
+        "ry": 0.0,
+        "rz": 0.0
+      },
+      "binding": { "body": "z_head" },
+      "description": "Z head at home position"
+    },
+    {
+      "id": "spindle_box",
+      "op": "make_box",
+      "args": { "dx": 220.0, "dy": 220.0, "dz": 360.0 },
+      "binding": { "body": "spindle" },
+      "description": "Spindle cartridge"
+    },
+    {
+      "id": "spindle",
+      "op": "transform",
+      "args": {
+        "input": "spindle_box",
+        "tx": 765.0,
+        "ty": 545.0,
+        "tz": 1340.0,
+        "rx": 0.0,
+        "ry": 0.0,
+        "rz": 0.0
+      },
+      "binding": { "body": "spindle" },
+      "description": "Spindle at home position"
+    },
+    {
+      "id": "assembly",
+      "op": "compound",
+      "args": {
+        "node_refs": [
+          "machine_base",
+          "column",
+          "x_saddle",
+          "work_table",
+          "z_head",
+          "spindle"
+        ]
+      },
+      "description": "Final machine assembly"
+    }
+  ],
+  "variants": {
+    "compact": {
+      "param_overrides": {
+        "travel_x": 400.0,
+        "travel_y": 300.0,
+        "travel_z": 300.0
+      }
+    },
+    "extended": {
+      "param_overrides": {
+        "travel_x": 700.0,
+        "travel_y": 500.0,
+        "travel_z": 550.0
+      }
+    }
+  },
+  "kinematics": "basic_3axis_mill.pkm",
+  "output": "assembly",
+  "metadata": {
+    "description": "Static 3-axis mill geometry with explicit body bindings for kinematic simulation",
+    "version": "1.0"
+  }
+}

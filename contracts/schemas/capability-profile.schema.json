@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://praxis.dev/schemas/capability-profile.schema.json",
+  "title": "capability-profile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "capabilityId",
+    "capabilityVersion",
+    "machineCapabilityId",
+    "id",
+    "version",
+    "machineDefinitionRef",
+    "units",
+    "kinematicsSummary"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0"
+    },
+    "capabilityId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "capabilityVersion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "machineCapabilityId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "machineDefinitionRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["machineId", "schemaVersion"],
+      "properties": {
+        "machineId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "schemaVersion": {
+          "type": "string",
+          "const": "1.0"
+        }
+      }
+    },
+    "units": {
+      "type": "string",
+      "enum": ["mm"]
+    },
+    "kinematicsSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["bodyCount", "jointCount", "axisIds", "axisTypes"],
+      "properties": {
+        "bodyCount": {
+          "type": "integer"
+        },
+        "jointCount": {
+          "type": "integer"
+        },
+        "axisIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "axisTypes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["revolute", "prismatic"]
+          }
+        }
+      }
+    }
+  }
+}

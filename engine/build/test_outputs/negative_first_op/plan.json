@@ -1,0 +1,14 @@
+{
+  "plan_id": "invalid_first_op",
+  "steps": [
+    {
+      "args": {
+        "fixed_face": "{\"ref_type\":\"FaceRef\",\"parent\":{\"ref_type\":\"BodyRef\",\"index\":0},\"predicate\":{\"kind\":\"PlanarFace\",\"normal\":{\"x\":-1.0,\"y\":0.0,\"z\":0.0}}}",
+        "moving_face": "{\"ref_type\":\"FaceRef\",\"parent\":{\"ref_type\":\"BodyRef\",\"index\":0},\"predicate\":{\"kind\":\"PlanarFace\",\"normal\":{\"x\":1.0,\"y\":0.0,\"z\":0.0}}}"
+      },
+      "op_type": "AttachFaceToFace"
+    }
+  ],
+  "units": "mm",
+  "version": 1
+}

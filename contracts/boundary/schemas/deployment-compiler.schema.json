@@ -1,0 +1,170 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://praxis.cadcam/schemas/deployment-compiler/v1.0.0",
+  "title": "Deployment Compiler",
+  "description": "Frozen governed compile context used repeatedly for production translation.",
+  "type": "object",
+  "required": [
+    "deploymentCompilerId",
+    "deploymentCompilerVersion",
+    "machineDeploymentRef",
+    "capabilityProfileRef",
+    "policyPackRef",
+    "controllerBaseRef",
+    "compilerPins",
+    "frozen"
+  ],
+  "properties": {
+    "deploymentCompilerId": {
+      "type": "string",
+      "pattern": "^[a-z0-9\\-]+$"
+    },
+    "deploymentCompilerVersion": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "machineDeploymentRef": {
+      "type": "object",
+      "required": ["deploymentId", "deploymentVersion"],
+      "properties": {
+        "deploymentId": {
+          "type": "string",
+          "pattern": "^[a-z0-9\\-]+$"
+        },
+        "deploymentVersion": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$"
+        }
+      },
+      "additionalProperties": false
+    },
+    "capabilityProfileRef": {
+      "type": "object",
+      "required": ["capabilityId", "capabilityVersion"],
+      "properties": {
+        "capabilityId": {
+          "type": "string",
+          "pattern": "^[a-z0-9\\-]+$"
+        },
+        "capabilityVersion": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$"
+        }
+      },
+      "additionalProperties": false
+    },
+    "policyPackRef": {
+      "type": "object",
+      "required": ["policyPackId", "policyPackVersion"],
+      "properties": {
+        "policyPackId": {
+          "type": "string",
+          "pattern": "^[a-z0-9\\-]+$"
+        },
+        "policyPackVersion": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$"
+        }
+      },
+      "additionalProperties": false
+    },
+    "controllerBaseRef": {
+      "type": "object",
+      "required": ["controllerBaseId", "controllerBaseVersion"],
+      "properties": {
+        "controllerBaseId": {
+          "type": "string",
+          "pattern": "^[a-z0-9\\-]+$"
+        },
+        "controllerBaseVersion": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$"
+        }
+      },
+      "additionalProperties": false
+    },
+    "compilerPins": {
+      "type": "object",
+      "required": ["compilerVersion", "compilerBuild", "emitterVersion"],
+      "properties": {
+        "compilerVersion": {"type": "string"},
+        "compilerBuild": {"type": "string"},
+        "irVersion": {"type": "string"},
+        "emitterVersion": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "trustedOverrides": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["overrideClass"],
+        "properties": {
+          "overrideClass": {"type": "string"},
+          "value": {
+            "type": ["string", "number", "boolean", "object", "array", "null"]
+          },
+          "approvedBy": {"type": "string"},
+          "approvalRef": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "compilerRequestMapping": {
+      "type": "object",
+      "required": ["machineCapabilityId", "targetSelection"],
+      "properties": {
+        "machineCapabilityId": {
+          "type": "string",
+          "pattern": "^[a-z0-9\\-]+$"
+        },
+        "targetSelection": {
+          "type": "object",
+          "required": ["machineProfile", "policyPack", "controllerBase"],
+          "properties": {
+            "machineProfile": {
+              "type": "object",
+              "required": ["id", "version"],
+              "properties": {
+                "id": {"type": "string", "pattern": "^[a-z0-9\\-]+$"},
+                "version": {"type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$"}
+              },
+              "additionalProperties": false
+            },
+            "policyPack": {
+              "type": "object",
+              "required": ["id", "version"],
+              "properties": {
+                "id": {"type": "string", "pattern": "^[a-z0-9\\-]+$"},
+                "version": {"type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$"}
+              },
+              "additionalProperties": false
+            },
+            "controllerBase": {
+              "type": "object",
+              "required": ["id", "version"],
+              "properties": {
+                "id": {"type": "string", "pattern": "^[a-z0-9\\-]+$"},
+                "version": {"type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$"}
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "frozen": {
+      "type": "object",
+      "required": ["isFrozen", "frozenAt"],
+      "properties": {
+        "isFrozen": {"type": "boolean", "const": true},
+        "frozenAt": {"type": "string", "format": "date-time"},
+        "frozenBy": {"type": "string"}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

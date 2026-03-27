@@ -1,0 +1,169 @@
+{
+  "pkm_version": "0.2",
+  "machine": "basic_3axis_mill_v2",
+  "units": "mm",
+  "bodies": [
+    "machine_base",
+    "column",
+    "x_saddle",
+    "work_table",
+    "z_head",
+    "spindle"
+  ],
+  "joints": [
+    {
+      "id": "X",
+      "type": "prismatic",
+      "parent_body": "machine_base",
+      "child_body": "x_saddle",
+      "axis_origin": [0, 0, 0],
+      "axis_direction": [1, 0, 0],
+      "limits": { "min": 0, "max": 500 },
+      "soft_limits": { "min": 5.0, "max": 495.0 },
+      "dynamics": {
+        "max_velocity_mm_min": 15000,
+        "max_acceleration_mm_s2": 3000,
+        "max_jerk_mm_s3": 30000,
+        "backlash_mm": 0.004,
+        "encoder_resolution_mm": 0.001,
+        "drive_type": "servo_ac"
+      }
+    },
+    {
+      "id": "Y",
+      "type": "prismatic",
+      "parent_body": "x_saddle",
+      "child_body": "work_table",
+      "axis_origin": [0, 0, 0],
+      "axis_direction": [0, 1, 0],
+      "limits": { "min": 0, "max": 400 },
+      "soft_limits": { "min": 5.0, "max": 395.0 },
+      "dynamics": {
+        "max_velocity_mm_min": 15000,
+        "max_acceleration_mm_s2": 3000,
+        "max_jerk_mm_s3": 30000,
+        "backlash_mm": 0.004,
+        "encoder_resolution_mm": 0.001,
+        "drive_type": "servo_ac"
+      }
+    },
+    {
+      "id": "Z",
+      "type": "prismatic",
+      "parent_body": "z_head",
+      "child_body": "spindle",
+      "axis_origin": [0, 0, 0],
+      "axis_direction": [0, 0, -1],
+      "limits": { "min": 0, "max": 400 },
+      "soft_limits": { "min": 5.0, "max": 395.0 },
+      "dynamics": {
+        "max_velocity_mm_min": 12000,
+        "max_acceleration_mm_s2": 2500,
+        "max_jerk_mm_s3": 25000,
+        "backlash_mm": 0.003,
+        "encoder_resolution_mm": 0.001,
+        "drive_type": "servo_ac"
+      }
+    }
+  ],
+  "chain": ["X", "Y", "Z"],
+  "frames": {
+    "machine_origin": {
+      "origin": [0, 0, 0],
+      "x_axis": [1, 0, 0],
+      "y_axis": [0, 1, 0],
+      "z_axis": [0, 0, 1]
+    },
+    "spindle_nose": {
+      "description": "Spindle nose face center — TCP reference with no tool loaded",
+      "reference_body": "spindle",
+      "origin_offset_mm": [0, 0, -40],
+      "z_axis": [0, 0, -1]
+    },
+    "work_table_center": {
+      "description": "Geometric center of work table surface",
+      "reference_body": "work_table",
+      "origin_offset_mm": [250, 200, 0],
+      "z_axis": [0, 0, 1]
+    }
+  },
+  "spindle": {
+    "body": "spindle",
+    "nose_frame": "spindle_nose",
+    "axis_direction": [0, 0, -1],
+    "max_rpm": 12000,
+    "min_rpm": 50,
+    "rated_power_kw": 15.0,
+    "max_torque_nm": 95.5,
+    "gear_ranges": [
+      { "gear": 1, "rpm_range": [50,  1500], "max_torque_nm": 95.5 },
+      { "gear": 2, "rpm_range": [1500, 6000], "max_torque_nm": 38.0 },
+      { "gear": 3, "rpm_range": [6000, 12000], "max_torque_nm": 11.9 }
+    ],
+    "orientation_capable": true,
+    "tool_interface": "BT40"
+  },
+  "tcp": {
+    "description": "Tool center point — spindle nose face, no tool loaded",
+    "reference_frame": "spindle_nose",
+    "offset_mm": [0, 0, 0]
+  },
+  "toolchanger": {
+    "type": "arm",
+    "capacity": 24,
+    "change_time_s": 3.5,
+    "machine_position_mm": [250, -50, 0],
+    "approach_axis": "Z",
+    "tool_interface": "BT40"
+  },
+  "reference_positions": {
+    "machine_home_mm": [0, 0, 0],
+    "second_reference_mm": [250, 200, -200],
+    "tool_change_mm": [250, -50, 0],
+    "probe_position_mm": [450, 350, -30],
+    "safe_z_retract_mm": -10
+  },
+  "work_envelope": {
+    "description": "Usable cutting volume in machine coordinates (soft limits applied)",
+    "x_range_mm": [5.0, 495.0],
+    "y_range_mm": [5.0, 395.0],
+    "z_range_mm": [-390.0, -10.0],
+    "note": "Z is negative downward from machine origin (tool into work)"
+  },
+  "physics": {
+    "units": "SI",
+    "gravity_axis": "neg_Z",
+    "bodies": {
+      "machine_base": {
+        "mass_kg": 2800,
+        "center_of_mass_mm": [900, 700, 250],
+        "description": "Cast iron base casting"
+      },
+      "column": {
+        "mass_kg": 750,
+        "center_of_mass_mm": [900, 0, 800],
+        "description": "Vertical column, fixed to base"
+      },
+      "x_saddle": {
+        "mass_kg": 220,
+        "center_of_mass_mm": [250, 0, 0],
+        "description": "X-axis saddle (linear X motion)"
+      },
+      "work_table": {
+        "mass_kg": 340,
+        "center_of_mass_mm": [250, 200, 0],
+        "description": "Work table with T-slots (linear Y motion)"
+      },
+      "z_head": {
+        "mass_kg": 310,
+        "center_of_mass_mm": [0, 0, -200],
+        "description": "Quill / Z-axis head assembly (column-mounted)"
+      },
+      "spindle": {
+        "mass_kg": 42,
+        "center_of_mass_mm": [0, 0, -80],
+        "description": "Spindle cartridge (linear Z motion)"
+      }
+    }
+  }
+}

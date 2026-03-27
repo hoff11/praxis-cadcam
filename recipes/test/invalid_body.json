@@ -1,0 +1,29 @@
+{
+  "recipe_version": "0.1",
+  "id": "invalid_body_test",
+  "units": "mm",
+  "params": {},
+  "derived": {},
+  "nodes": [
+    {
+      "id": "bad_box",
+      "op": "make_box",
+      "args": {
+        "dx": 100.0,
+        "dy": 100.0,
+        "dz": 100.0
+      },
+      "binding": {
+        "body": "nonexistent_body"
+      },
+      "description": "This should fail - body doesn't exist in PKM"
+    }
+  ],
+  "variants": {},
+  "kinematics": "../test_machine.pkm",
+  "output": "bad_box",
+  "metadata": {
+    "author": "Test",
+    "description": "Test recipe with invalid body reference"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "recipe_version": "0.1",
+  "id": "circular_a",
+  "units": "mm",
+  
+  "includes": [
+    {
+      "recipe_path": "circular_b.json",
+      "param_overrides": {}
+    }
+  ],
+  
+  "params": {},
+  "derived": {},
+  "nodes": []
+}

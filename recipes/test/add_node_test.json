@@ -1,0 +1,36 @@
+{
+  "recipe_version": "0.1",
+  "id": "add_node_test",
+  "units": "mm",
+  
+  "includes": [
+    {
+      "recipe_path": "base_plate.json",
+      "param_overrides": {
+        "plate_width": 1500
+      }
+    }
+  ],
+  
+  "params": {},
+  "derived": {},
+  
+  "nodes": [
+    {
+      "id": "column",
+      "description": "Vertical column",
+      "op": "make_box",
+      "args": {
+        "dx": 200,
+        "dy": 200,
+        "dz": 800
+      },
+      "binding": {
+        "body": "base"
+      }
+    }
+  ],
+  
+  "kinematics": "../vmc/vmc_3axis.pkm",
+  "output": "column"
+}

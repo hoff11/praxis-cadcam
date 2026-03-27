@@ -1,0 +1,107 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://praxis.cadcam/schemas/machine-deployment/v1.0.0",
+  "title": "Machine Deployment",
+  "description": "Shop-specific deployment realization of a machine definition.",
+  "type": "object",
+  "required": [
+    "deploymentId",
+    "deploymentVersion",
+    "machineDefinitionRef",
+    "controllerBase",
+    "site"
+  ],
+  "properties": {
+    "deploymentId": {
+      "type": "string",
+      "pattern": "^[a-z0-9\\-]+$"
+    },
+    "deploymentVersion": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "machineDefinitionRef": {
+      "type": "object",
+      "required": ["machineId", "machineVersion"],
+      "properties": {
+        "machineId": {
+          "type": "string",
+          "pattern": "^[a-z0-9\\-]+$"
+        },
+        "machineVersion": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$"
+        }
+      },
+      "additionalProperties": false
+    },
+    "controllerBase": {
+      "type": "object",
+      "required": ["controllerBaseId", "controllerBaseVersion"],
+      "properties": {
+        "controllerBaseId": {
+          "type": "string",
+          "pattern": "^[a-z0-9\\-]+$"
+        },
+        "controllerBaseVersion": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$"
+        },
+        "dialectFamily": {
+          "type": "string",
+          "enum": ["fanuc", "siemens", "haas", "heidenhain", "other"]
+        }
+      },
+      "additionalProperties": false
+    },
+    "site": {
+      "type": "object",
+      "required": ["siteId", "shopId"],
+      "properties": {
+        "siteId": {"type": "string"},
+        "shopId": {"type": "string"},
+        "cellId": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "installedOptions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "deploymentConstraints": {
+      "type": "object",
+      "properties": {
+        "forbidDynamicFeedOverride": {"type": "boolean"},
+        "maxPartEnvelope": {
+          "type": "object",
+          "properties": {
+            "x": {"type": "number"},
+            "y": {"type": "number"},
+            "z": {"type": "number"}
+          },
+          "additionalProperties": false
+        },
+        "allowedInterpolationModes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["linear", "circular", "spline", "helical"]
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "createdBy": {"type": "string"},
+        "createdAt": {"type": "string", "format": "date-time"},
+        "notes": {"type": "string"}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

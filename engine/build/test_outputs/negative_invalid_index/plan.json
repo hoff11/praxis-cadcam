@@ -1,0 +1,25 @@
+{
+  "plan_id": "invalid_index_test",
+  "steps": [
+    {
+      "args": {
+        "size_x": "10",
+        "size_y": "10",
+        "size_z": "10",
+        "tx": "0",
+        "ty": "0",
+        "tz": "0"
+      },
+      "op_type": "CreateBox"
+    },
+    {
+      "args": {
+        "fixed_face": "{\"ref_type\":\"FaceRef\",\"parent\":{\"ref_type\":\"BodyRef\",\"index\":0},\"predicate\":{\"kind\":\"PlanarFace\",\"normal\":{\"x\":-1.0,\"y\":0.0,\"z\":0.0}}}",
+        "moving_face": "{\"ref_type\":\"FaceRef\",\"parent\":{\"ref_type\":\"BodyRef\",\"index\":999},\"predicate\":{\"kind\":\"PlanarFace\",\"normal\":{\"x\":1.0,\"y\":0.0,\"z\":0.0}}}"
+      },
+      "op_type": "AttachFaceToFace"
+    }
+  ],
+  "units": "mm",
+  "version": 1
+}

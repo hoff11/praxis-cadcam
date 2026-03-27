@@ -1,0 +1,79 @@
+{
+  "plan_id": "plan:basic_3axis_mill_v2_compile_safe",
+  "version": 2,
+  "units": "mm",
+  "steps": [
+    {
+      "op_type": "CreateBox",
+      "args": {
+        "size_x": 1800,
+        "size_y": 1400,
+        "size_z": 500,
+        "tx": 0,
+        "ty": 0,
+        "tz": 0
+      }
+    },
+    {
+      "op_type": "CreateBox",
+      "args": {
+        "size_x": 600,
+        "size_y": 500,
+        "size_z": 1800,
+        "tx": 600,
+        "ty": 900,
+        "tz": 500
+      }
+    },
+    {
+      "op_type": "CreateBox",
+      "args": {
+        "size_x": 700,
+        "size_y": 300,
+        "size_z": 160,
+        "tx": 100,
+        "ty": 550,
+        "tz": 500
+      }
+    },
+    {
+      "op_type": "CreateBox",
+      "args": {
+        "size_x": 650,
+        "size_y": 350,
+        "size_z": 120,
+        "tx": 125,
+        "ty": 525,
+        "tz": 660
+      }
+    },
+    {
+      "op_type": "CreateBox",
+      "args": {
+        "size_x": 500,
+        "size_y": 450,
+        "size_z": 480,
+        "tx": 625,
+        "ty": 430,
+        "tz": 1700
+      }
+    },
+    {
+      "op_type": "CreateBox",
+      "args": {
+        "size_x": 220,
+        "size_y": 220,
+        "size_z": 360,
+        "tx": 765,
+        "ty": 545,
+        "tz": 1340
+      }
+    }
+  ],
+  "assumptions": [
+    "Compile-safe revision for current engine capability: CreateBox only.",
+    "Coordinates are in machine/world frame, mm units.",
+    "Model represents coarse machine envelope and major structural groups.",
+    "No frame graph, naming, mating, movement, or measurement ops in this revision."
+  ]
+}

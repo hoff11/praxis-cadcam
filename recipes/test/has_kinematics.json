@@ -1,0 +1,35 @@
+{
+  "recipe_version": "0.1",
+  "id": "has_kinematics",
+  "units": "mm",
+  
+  "params": {
+    "size": {
+      "default_value": 100,
+      "min_value": 10,
+      "max_value": 500,
+      "description": "Box size"
+    }
+  },
+  
+  "derived": {},
+  
+  "nodes": [
+    {
+      "id": "box",
+      "description": "Simple box",
+      "op": "make_box",
+      "args": {
+        "dx": "size",
+        "dy": "size",
+        "dz": "size"
+      },
+      "binding": {
+        "body": "base"
+      }
+    }
+  ],
+  
+  "kinematics": "../vmc/vmc_3axis.pkm",
+  "output": "box"
+}

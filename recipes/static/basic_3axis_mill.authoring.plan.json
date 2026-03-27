@@ -1,0 +1,207 @@
+{
+  "plan_id": "plan:basic_3axis_mill_v1_authoring",
+  "version": 1,
+  "units": "mm",
+  "steps": [
+    {
+      "op_type": "CreateFrame",
+      "args": {
+        "label": "world",
+        "origin": { "x": 0, "y": 0, "z": 0, "unit": "mm" },
+        "orientation": { "i": [1, 0, 0], "j": [0, 1, 0], "k": [0, 0, 1] }
+      },
+      "outputs": { "frame": "frame:world" }
+    },
+    {
+      "op_type": "CreateFrame",
+      "args": {
+        "label": "column_base",
+        "origin": { "x": 600, "y": 900, "z": 500, "unit": "mm" },
+        "orientation": { "i": [1, 0, 0], "j": [0, 1, 0], "k": [0, 0, 1] }
+      },
+      "outputs": { "frame": "frame:column_base" }
+    },
+    {
+      "op_type": "CreateFrame",
+      "args": {
+        "label": "saddle_home",
+        "origin": { "x": 100, "y": 550, "z": 500, "unit": "mm" },
+        "orientation": { "i": [1, 0, 0], "j": [0, 1, 0], "k": [0, 0, 1] }
+      },
+      "outputs": { "frame": "frame:saddle_home" }
+    },
+    {
+      "op_type": "CreateFrame",
+      "args": {
+        "label": "table_home",
+        "origin": { "x": 125, "y": 525, "z": 660, "unit": "mm" },
+        "orientation": { "i": [1, 0, 0], "j": [0, 1, 0], "k": [0, 0, 1] }
+      },
+      "outputs": { "frame": "frame:table_home" }
+    },
+    {
+      "op_type": "CreateFrame",
+      "args": {
+        "label": "z_head_home",
+        "origin": { "x": 625, "y": 430, "z": 1700, "unit": "mm" },
+        "orientation": { "i": [1, 0, 0], "j": [0, 1, 0], "k": [0, 0, 1] }
+      },
+      "outputs": { "frame": "frame:z_head_home" }
+    },
+    {
+      "op_type": "CreateFrame",
+      "args": {
+        "label": "spindle_nose",
+        "origin": { "x": 900, "y": 700, "z": 1300, "unit": "mm" },
+        "orientation": { "i": [1, 0, 0], "j": [0, 1, 0], "k": [0, 0, -1] }
+      },
+      "outputs": { "frame": "frame:spindle_nose" }
+    },
+    {
+      "op_type": "CreateBox",
+      "args": {
+        "size": { "x": 1800, "y": 1400, "z": 500, "unit": "mm" },
+        "frame": { "ref_type": "FrameRef", "stable_id": "frame:world" }
+      },
+      "outputs": { "body": "body:machine_base" }
+    },
+    {
+      "op_type": "NameEntity",
+      "args": {
+        "target": { "ref_type": "BodyRef", "stable_id": "body:machine_base" },
+        "name": "Machine Base"
+      }
+    },
+    {
+      "op_type": "CreateBox",
+      "args": {
+        "size": { "x": 600, "y": 500, "z": 1800, "unit": "mm" },
+        "frame": { "ref_type": "FrameRef", "stable_id": "frame:column_base" }
+      },
+      "outputs": { "body": "body:column" }
+    },
+    {
+      "op_type": "NameEntity",
+      "args": {
+        "target": { "ref_type": "BodyRef", "stable_id": "body:column" },
+        "name": "Z Column"
+      }
+    },
+    {
+      "op_type": "CreateBox",
+      "args": {
+        "size": { "x": 700, "y": 300, "z": 160, "unit": "mm" },
+        "frame": { "ref_type": "FrameRef", "stable_id": "frame:saddle_home" }
+      },
+      "outputs": { "body": "body:x_saddle" }
+    },
+    {
+      "op_type": "NameEntity",
+      "args": {
+        "target": { "ref_type": "BodyRef", "stable_id": "body:x_saddle" },
+        "name": "X Saddle"
+      }
+    },
+    {
+      "op_type": "CreateBox",
+      "args": {
+        "size": { "x": 650, "y": 350, "z": 120, "unit": "mm" },
+        "frame": { "ref_type": "FrameRef", "stable_id": "frame:table_home" }
+      },
+      "outputs": { "body": "body:work_table" }
+    },
+    {
+      "op_type": "NameEntity",
+      "args": {
+        "target": { "ref_type": "BodyRef", "stable_id": "body:work_table" },
+        "name": "Work Table"
+      }
+    },
+    {
+      "op_type": "AttachFaceToFace",
+      "args": {
+        "moving_face": { "ref_type": "FaceRef", "stable_id": "face:work_table_bottom" },
+        "fixed_face": { "ref_type": "FaceRef", "stable_id": "face:x_saddle_top" },
+        "mode": "flush",
+        "offset": { "value": 0, "unit": "mm" }
+      }
+    },
+    {
+      "op_type": "CreateBox",
+      "args": {
+        "size": { "x": 500, "y": 450, "z": 480, "unit": "mm" },
+        "frame": { "ref_type": "FrameRef", "stable_id": "frame:z_head_home" }
+      },
+      "outputs": { "body": "body:z_head" }
+    },
+    {
+      "op_type": "NameEntity",
+      "args": {
+        "target": { "ref_type": "BodyRef", "stable_id": "body:z_head" },
+        "name": "Z Head Carriage"
+      }
+    },
+    {
+      "op_type": "AttachFaceToFace",
+      "args": {
+        "moving_face": { "ref_type": "FaceRef", "stable_id": "face:z_head_rear" },
+        "fixed_face": { "ref_type": "FaceRef", "stable_id": "face:column_front" },
+        "mode": "flush",
+        "offset": { "value": 0, "unit": "mm" }
+      }
+    },
+    {
+      "op_type": "CreateBox",
+      "args": {
+        "size": { "x": 220, "y": 220, "z": 360, "unit": "mm" },
+        "frame": { "ref_type": "FrameRef", "stable_id": "frame:z_head_home" }
+      },
+      "outputs": { "body": "body:spindle" }
+    },
+    {
+      "op_type": "NameEntity",
+      "args": {
+        "target": { "ref_type": "BodyRef", "stable_id": "body:spindle" },
+        "name": "Spindle"
+      }
+    },
+    {
+      "op_type": "MoveEntity",
+      "args": {
+        "target": { "ref_type": "BodyRef", "stable_id": "body:spindle" },
+        "delta": { "x": 140, "y": 115, "z": -360, "unit": "mm" },
+        "frame": { "ref_type": "FrameRef", "stable_id": "frame:z_head_home" }
+      }
+    },
+    {
+      "op_type": "MeasureDistance",
+      "args": {
+        "a": { "ref_type": "FaceRef", "stable_id": "face:machine_base_bottom" },
+        "b": { "ref_type": "FaceRef", "stable_id": "face:column_top" },
+        "label": "overall_machine_height"
+      }
+    },
+    {
+      "op_type": "MeasureDistance",
+      "args": {
+        "a": { "ref_type": "FaceRef", "stable_id": "face:z_head_bottom" },
+        "b": { "ref_type": "FaceRef", "stable_id": "face:work_table_top" },
+        "label": "spindle_to_table_clearance_at_z_home"
+      }
+    },
+    {
+      "op_type": "MeasureDistance",
+      "args": {
+        "a": { "ref_type": "FaceRef", "stable_id": "face:work_table_left_end" },
+        "b": { "ref_type": "FaceRef", "stable_id": "face:work_table_right_end" },
+        "label": "work_table_length_x"
+      }
+    }
+  ],
+  "assumptions": [
+    "Authoring/target definition with richer semantic operations.",
+    "Intended for future engine capability beyond CreateBox-only compile path.",
+    "Machine class: compact 3-axis vertical machining center (VMC).",
+    "Kinematic topology: 3axis_xyz."
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "recipe_version": "0.1",
+  "id": "namespace_test",
+  "units": "mm",
+  "params": {
+    "base_width": {"type": "number", "default_value": 500.0},
+    "base_height": {"type": "number", "default_value": 50.0},
+    "diameter": {"type": "number", "default_value": 100.0}
+  },
+  "nodes": [
+    {
+      "id": "base",
+      "op": "make_box",
+      "args": {
+        "dx": "base_width",
+        "dy": "base_width",
+        "dz": "base_height"
+      }
+    }
+  ],
+  "includes": [
+    {
+      "recipe_path": "spindle_fragment.json",
+      "namespace_alias": "spindle",
+      "param_overrides": {
+        "diameter": 60.0,
+        "height": 200.0
+      }
+    }
+  ],
+  "kinematics_path": "../vmc/haas_vf2.pkm",
+  "output": "spindle_body"
+}

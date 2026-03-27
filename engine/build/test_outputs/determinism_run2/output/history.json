@@ -1,0 +1,13 @@
+{
+  "plan_id": "test_two_boxes",
+  "versions": [
+    {
+      "created_at": "2026-03-27T17:44:53Z",
+      "parent_version": -1,
+      "reason": "Initial plan execution",
+      "step_count": 2,
+      "steps_hash": "d6115002ac27c8634b76c85a233ac39d5013ab8509f54605be55fc6236eb9062",
+      "version": 1
+    }
+  ]
+}

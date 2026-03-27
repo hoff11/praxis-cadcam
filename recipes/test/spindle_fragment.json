@@ -1,0 +1,20 @@
+{
+  "recipe_version": "0.1",
+  "id": "spindle_fragment",
+  "units": "mm",
+  "params": {
+    "diameter": {"type": "number", "default_value": 50.0},
+    "height": {"type": "number", "default_value": 150.0}
+  },
+  "nodes": [
+    {
+      "id": "spindle_body",
+      "op": "make_box",
+      "args": {
+        "dx": "diameter",
+        "dy": "diameter",
+        "dz": "height"
+      }
+    }
+  ]
+}

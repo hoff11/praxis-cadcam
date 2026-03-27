@@ -1,0 +1,189 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://praxis.dev/schemas/machine-definition.schema.json",
+  "title": "machine-definition",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "machineId",
+    "machineName",
+    "units",
+    "source",
+    "kinematics"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0"
+    },
+    "machineId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "machineName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "units": {
+      "type": "string",
+      "enum": ["mm"]
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["inputType", "inputPath", "pkmVersion"],
+      "properties": {
+        "inputType": {
+          "type": "string",
+          "enum": ["pkm"]
+        },
+        "inputPath": {
+          "type": "string",
+          "minLength": 1
+        },
+        "pkmVersion": {
+          "type": "string",
+          "enum": ["0.1", "0.2"]
+        }
+      }
+    },
+    "metadata": {
+      "type": "object"
+    },
+    "kinematics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["pkmVersion", "bodies", "joints", "chain", "frames"],
+      "properties": {
+        "pkmVersion": {
+          "type": "string",
+          "enum": ["0.1", "0.2"]
+        },
+        "bodies": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "joints": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "type",
+              "parentBody",
+              "childBody",
+              "axisOrigin",
+              "axisDirection",
+              "limits"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "type": {
+                "type": "string",
+                "enum": ["revolute", "prismatic"]
+              },
+              "parentBody": {
+                "type": "string",
+                "minLength": 1
+              },
+              "childBody": {
+                "type": "string",
+                "minLength": 1
+              },
+              "axisOrigin": {
+                "type": "array",
+                "minItems": 3,
+                "maxItems": 3,
+                "items": {
+                  "type": "number"
+                }
+              },
+              "axisDirection": {
+                "type": "array",
+                "minItems": 3,
+                "maxItems": 3,
+                "items": {
+                  "type": "number"
+                }
+              },
+              "limits": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["min", "max"],
+                "properties": {
+                  "min": {
+                    "type": "number"
+                  },
+                  "max": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "chain": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "frames": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name", "origin", "xAxis", "yAxis", "zAxis"],
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "origin": {
+                "type": "array",
+                "minItems": 3,
+                "maxItems": 3,
+                "items": {
+                  "type": "number"
+                }
+              },
+              "xAxis": {
+                "type": "array",
+                "minItems": 3,
+                "maxItems": 3,
+                "items": {
+                  "type": "number"
+                }
+              },
+              "yAxis": {
+                "type": "array",
+                "minItems": 3,
+                "maxItems": 3,
+                "items": {
+                  "type": "number"
+                }
+              },
+              "zAxis": {
+                "type": "array",
+                "minItems": 3,
+                "maxItems": 3,
+                "items": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

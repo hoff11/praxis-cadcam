@@ -1,0 +1,54 @@
+{
+  "pkm_version": "0.1",
+  "machine": "VMC_5X_TableTable",
+  "units": "mm",
+  "bodies": ["base", "saddle", "table", "column", "z_carriage", "spindle_head"],
+  "joints": [
+    {
+      "id": "X",
+      "type": "prismatic",
+      "parent_body": "base",
+      "child_body": "saddle",
+      "axis_origin": [0, 0, 200],
+      "axis_direction": [1, 0, 0],
+      "limits": [0, 1000]
+    },
+    {
+      "id": "Y",
+      "type": "prismatic",
+      "parent_body": "saddle",
+      "child_body": "table",
+      "axis_origin": [0, 0, 200],
+      "axis_direction": [0, 1, 0],
+      "limits": [0, 800]
+    },
+    {
+      "id": "Z",
+      "type": "prismatic",
+      "parent_body": "column",
+      "child_body": "z_carriage",
+      "axis_origin": [0, 0, 200],
+      "axis_direction": [0, 0, 1],
+      "limits": [0, 600]
+    },
+    {
+      "id": "A",
+      "type": "revolute",
+      "parent_body": "table",
+      "child_body": "table",
+      "axis_origin": [500, 400, 200],
+      "axis_direction": [1, 0, 0],
+      "limits": [-120, 120]
+    },
+    {
+      "id": "C",
+      "type": "revolute",
+      "parent_body": "table",
+      "child_body": "table",
+      "axis_origin": [500, 400, 200],
+      "axis_direction": [0, 0, 1],
+      "limits": [-360, 360]
+    }
+  ],
+  "chain": ["X", "Y", "Z", "A", "C"]
+}

@@ -1,0 +1,48 @@
+{
+  "bindings": [
+    {
+      "node_id": "base",
+      "body_id": "base"
+    },
+    {
+      "node_id": "x_carriage",
+      "body_id": "x_carriage"
+    },
+    {
+      "node_id": "x_carriage_positioned",
+      "body_id": "x_carriage"
+    },
+    {
+      "node_id": "y_carriage",
+      "body_id": "y_carriage"
+    },
+    {
+      "node_id": "y_carriage_positioned",
+      "body_id": "y_carriage"
+    },
+    {
+      "node_id": "table",
+      "body_id": "y_carriage"
+    },
+    {
+      "node_id": "table_positioned",
+      "body_id": "y_carriage"
+    },
+    {
+      "node_id": "z_column",
+      "body_id": "z_column"
+    },
+    {
+      "node_id": "z_column_positioned",
+      "body_id": "z_column"
+    },
+    {
+      "node_id": "spindle_head",
+      "body_id": "spindle_head"
+    },
+    {
+      "node_id": "spindle_head_positioned",
+      "body_id": "spindle_head"
+    }
+  ]
+}

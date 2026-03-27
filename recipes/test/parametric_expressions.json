@@ -1,0 +1,44 @@
+{
+  "recipe_version": "0.1",
+  "id": "parametric_expression_test",
+  "units": "mm",
+  "params": {
+    "base_size": {
+      "name": "base_size",
+      "default_value": 100.0,
+      "min_value": 50.0,
+      "max_value": 500.0,
+      "description": "Base dimension"
+    },
+    "scale_factor": {
+      "name": "scale_factor",
+      "default_value": 2.0,
+      "min_value": 1.0,
+      "max_value": 5.0,
+      "description": "Scale multiplier"
+    }
+  },
+  "derived": {},
+  "nodes": [
+    {
+      "id": "parametric_box",
+      "op": "make_box",
+      "args": {
+        "dx": "base_size",
+        "dy": "base_size * 2",
+        "dz": "base_size * 3"
+      },
+      "binding": {
+        "body": "base"
+      },
+      "description": "Box with parametric dimensions"
+    }
+  ],
+  "variants": {},
+  "kinematics": "../test_machine.pkm",
+  "output": "parametric_box",
+  "metadata": {
+    "author": "Praxis Sprint 2",
+    "description": "Test recipe with expression strings in node args"
+  }
+}

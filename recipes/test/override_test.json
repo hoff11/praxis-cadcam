@@ -1,0 +1,22 @@
+{
+  "recipe_version": "0.1",
+  "id": "override_test",
+  "units": "mm",
+  
+  "includes": [
+    {
+      "recipe_path": "base_plate.json",
+      "param_overrides": {
+        "plate_width": 1500,
+        "plate_depth": 1200
+      }
+    }
+  ],
+  
+  "params": {},
+  "derived": {},
+  "nodes": [],
+  
+  "kinematics": "../vmc/vmc_3axis.pkm",
+  "output": "base_plate"
+}

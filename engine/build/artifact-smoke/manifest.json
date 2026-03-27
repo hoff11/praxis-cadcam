@@ -1,0 +1,16 @@
+{
+  "artifacts": [
+    {
+      "artifactType": "capability-profile",
+      "path": "capability-profile.json",
+      "sha256": "1d1f017ed1450629aead32f8da31cd53d70955d5eb5e64886d9727628fd9a2a1"
+    },
+    {
+      "artifactType": "machine-definition",
+      "path": "machine-definition.json",
+      "sha256": "e9889d9e2f97df6fb0fafe7c10a0a5d2162355810ad52ff2a75ddd95ec3c4af5"
+    }
+  ],
+  "bundleId": "artifact-smoke",
+  "schemaVersion": "1.0"
+}

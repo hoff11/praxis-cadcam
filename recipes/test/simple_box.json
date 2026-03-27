@@ -1,0 +1,51 @@
+{
+  "recipe_version": "0.1",
+  "id": "simple_box_test",
+  "units": "mm",
+  "params": {
+    "width": {
+      "name": "width",
+      "default_value": 100.0,
+      "min_value": 50.0,
+      "max_value": 500.0,
+      "description": "Box width in mm"
+    },
+    "height": {
+      "name": "height",
+      "default_value": 200.0,
+      "min_value": 50.0,
+      "max_value": 500.0,
+      "description": "Box height in mm"
+    },
+    "depth": {
+      "name": "depth",
+      "default_value": 300.0,
+      "min_value": 50.0,
+      "max_value": 500.0,
+      "description": "Box depth in mm"
+    }
+  },
+  "derived": {},
+  "nodes": [
+    {
+      "id": "base_box",
+      "op": "make_box",
+      "args": {
+        "dx": 100.0,
+        "dy": 200.0,
+        "dz": 300.0
+      },
+      "binding": {
+        "body": "base"
+      },
+      "description": "Create base box geometry"
+    }
+  ],
+  "variants": {},
+  "kinematics": "../test_machine.pkm",
+  "output": "base_box",
+  "metadata": {
+    "author": "Praxis Sprint 2",
+    "description": "Simple single-box test recipe"
+  }
+}

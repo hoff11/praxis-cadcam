@@ -1,0 +1,272 @@
+{
+  "recipe_version": "0.1",
+  "id": "vmc_3axis_v0",
+  "units": "mm",
+  "params": {
+    "travel_x": {
+      "name": "travel_x",
+      "default_value": 800.0,
+      "min_value": 200.0,
+      "max_value": 2000.0,
+      "description": "X-axis travel distance in mm"
+    },
+    "travel_y": {
+      "name": "travel_y",
+      "default_value": 600.0,
+      "min_value": 200.0,
+      "max_value": 2000.0,
+      "description": "Y-axis travel distance in mm"
+    },
+    "travel_z": {
+      "name": "travel_z",
+      "default_value": 500.0,
+      "min_value": 200.0,
+      "max_value": 2000.0,
+      "description": "Z-axis travel distance in mm"
+    },
+    "table_width": {
+      "name": "table_width",
+      "default_value": 1000.0,
+      "min_value": 400.0,
+      "max_value": 2000.0,
+      "description": "Table width in mm"
+    },
+    "table_depth": {
+      "name": "table_depth",
+      "default_value": 600.0,
+      "min_value": 400.0,
+      "max_value": 2000.0,
+      "description": "Table depth in mm"
+    }
+  },
+  "derived": {
+    "base_width": {
+      "name": "base_width",
+      "formula": "table_width + 400",
+      "description": "Base platform width (table + clearance)"
+    },
+    "base_depth": {
+      "name": "base_depth",
+      "formula": "table_depth + 400",
+      "description": "Base platform depth (table + clearance)"
+    },
+    "x_carriage_width": {
+      "name": "x_carriage_width",
+      "formula": "travel_x + 280",
+      "description": "X carriage width (travel + structure)"
+    },
+    "y_carriage_width": {
+      "name": "y_carriage_width",
+      "formula": "table_width - 400",
+      "description": "Y carriage width"
+    },
+    "z_column_height": {
+      "name": "z_column_height",
+      "formula": "travel_z + 500",
+      "description": "Z column height (travel + base + clearance)"
+    }
+  },
+  "nodes": [
+    {
+      "id": "base",
+      "op": "make_box",
+      "args": {
+        "dx": "base_width",
+        "dy": "base_depth",
+        "dz": 200.0
+      },
+      "binding": {
+        "body": "base"
+      },
+      "description": "Machine base platform"
+    },
+    {
+      "id": "x_carriage",
+      "op": "make_box",
+      "args": {
+        "dx": "x_carriage_width",
+        "dy": 210.0,
+        "dz": 120.0
+      },
+      "binding": {
+        "body": "x_carriage"
+      },
+      "description": "X-axis saddle/carriage"
+    },
+    {
+      "id": "x_carriage_positioned",
+      "op": "transform",
+      "args": {
+        "input": "x_carriage",
+        "tx": 160.0,
+        "ty": 395.0,
+        "tz": 220.0,
+        "rx": 0.0,
+        "ry": 0.0,
+        "rz": 0.0
+      },
+      "binding": {
+        "body": "x_carriage"
+      },
+      "description": "Position X carriage"
+    },
+    {
+      "id": "y_carriage",
+      "op": "make_box",
+      "args": {
+        "dx": "y_carriage_width",
+        "dy": 360.0,
+        "dz": 140.0
+      },
+      "binding": {
+        "body": "y_carriage"
+      },
+      "description": "Y-axis knee/carriage"
+    },
+    {
+      "id": "y_carriage_positioned",
+      "op": "transform",
+      "args": {
+        "input": "y_carriage",
+        "tx": 400.0,
+        "ty": 200.0,
+        "tz": 210.0,
+        "rx": 0.0,
+        "ry": 0.0,
+        "rz": 0.0
+      },
+      "binding": {
+        "body": "y_carriage"
+      },
+      "description": "Position Y carriage"
+    },
+    {
+      "id": "table",
+      "op": "make_box",
+      "args": {
+        "dx": "table_width",
+        "dy": "table_depth",
+        "dz": 100.0
+      },
+      "binding": {
+        "body": "y_carriage"
+      },
+      "description": "Work table (moves with Y)"
+    },
+    {
+      "id": "table_positioned",
+      "op": "transform",
+      "args": {
+        "input": "table",
+        "tx": 200.0,
+        "ty": 200.0,
+        "tz": 200.0,
+        "rx": 0.0,
+        "ry": 0.0,
+        "rz": 0.0
+      },
+      "binding": {
+        "body": "y_carriage"
+      },
+      "description": "Position table on base"
+    },
+    {
+      "id": "z_column",
+      "op": "make_box",
+      "args": {
+        "dx": 400.0,
+        "dy": "table_depth",
+        "dz": "z_column_height"
+      },
+      "binding": {
+        "body": "z_column"
+      },
+      "description": "Z-axis column"
+    },
+    {
+      "id": "z_column_positioned",
+      "op": "transform",
+      "args": {
+        "tx": 500.0,
+        "input": "z_column",
+        "ty": 400.0,
+        "tz": 200.0,
+        "rx": 0.0,
+        "ry": 0.0,
+        "rz": 0.0
+      },
+      "binding": {
+        "body": "z_column"
+      },
+      "description": "Position Z column at rear"
+    },
+    {
+      "id": "spindle_head",
+      "op": "make_box",
+      "args": {
+        "dx": 300.0,
+        "dy": 300.0,
+        "dz": 400.0
+      },
+      "binding": {
+        "body": "spindle_head"
+      },
+      "description": "Spindle head assembly"
+    },
+    {
+      "id": "spindle_head_positioned",
+      "op": "transform",
+      "args": {
+        "input": "spindle_head",
+        "tx": 550.0,
+        "ty": 250.0,
+        "tz": 400.0,
+        "rx": 0.0,
+        "ry": 0.0,
+        "rz": 0.0
+      },
+      "binding": {
+        "body": "spindle_head"
+      },
+      "description": "Position spindle head"
+    },
+    {
+      "id": "assembly",
+      "op": "compound",
+      "args": {
+        "node_refs": [
+          "base",
+          "x_carriage_positioned",
+          "y_carriage_positioned",
+          "table_positioned",
+          "z_column_positioned",
+          "spindle_head_positioned"
+        ]
+      },
+      "description": "Final machine assembly"
+    }
+  ],
+  "variants": {
+    "low": {
+      "param_overrides": {
+        "travel_x": 600.0,
+        "travel_y": 400.0,
+        "travel_z": 300.0
+      }
+    },
+    "high": {
+      "param_overrides": {
+        "travel_x": 1200.0,
+        "travel_y": 900.0,
+        "travel_z": 700.0
+      }
+    }
+  },
+  "kinematics": "vmc_3axis.pkm",
+  "output": "assembly",
+  "metadata": {
+    "author": "Praxis Sprint 2",
+    "description": "3-axis VMC with parametric sizing",
+    "version": "0.1"
+  }
+}

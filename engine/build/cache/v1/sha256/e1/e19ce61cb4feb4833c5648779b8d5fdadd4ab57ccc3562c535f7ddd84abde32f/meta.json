@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "op_hash": "e19ce61cb4feb4833c5648779b8d5fdadd4ab57ccc3562c535f7ddd84abde32f",
+  "engine_version": "0.6.1",
+  "kernel_version": "7.6.3",
+  "created_at": "2026-03-27T03:42:28Z",
+  "producer": "praxis-engine",
+  "outputs": [
+    {
+      "name": "out",
+      "filename": "out.step",
+      "bytes": 15575,
+      "sha256": "e670eaafb9ac7bec6452c362a2e682ee939f8f57f73c4e47a51d98dd8c3e3901",
+      "type": "step",
+      "previewable": true,
+      "semantic_type": "Body"
+    }
+  ]
+}

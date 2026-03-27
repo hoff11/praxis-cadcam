@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "1.0",
+  "capabilityId": "fanuc-3x-vmc",
+  "capabilityVersion": "1.0.0",
+  "machineCapabilityId": "fanuc-3x-vmc-mismatch",
+  "id": "fanuc-3x-vmc",
+  "version": "1.0.0",
+  "machineDefinitionRef": {
+    "machineId": "fanuc-3x-vmc",
+    "schemaVersion": "1.0"
+  },
+  "units": "mm",
+  "kinematicsSummary": {
+    "bodyCount": 4,
+    "jointCount": 3,
+    "axisIds": ["x", "y", "z"],
+    "axisTypes": ["prismatic", "prismatic", "prismatic"]
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "1.0",
+  "bundleId": "duplicate-paths-bundle",
+  "artifacts": [
+    {
+      "artifactType": "machine-definition",
+      "path": "machine-definition.json",
+      "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+    },
+    {
+      "artifactType": "capability-profile",
+      "path": "machine-definition.json",
+      "sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+    }
+  ]
+}
