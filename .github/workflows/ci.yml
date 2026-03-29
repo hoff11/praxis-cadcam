@@ -1,0 +1,52 @@
+name: CI
+
+permissions:
+  contents: read
+
+on:
+  push:
+    branches:
+      - main
+      - "release/**"
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Configure & Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends \
+            cmake \
+            ninja-build \
+            g++
+
+      - name: Configure
+        run: |
+          cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build
+        run: |
+          cmake --build build --parallel
+
+      - name: CLI smoke
+        run: |
+          ./build/praxis-cadcam-cli --help || true
+
+      - name: Upload cadcam binary
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: praxis-cadcam-cli-linux
+          retention-days: 14
+          if-no-files-found: warn
+          path: |
+            build/praxis-cadcam-cli
