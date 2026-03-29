@@ -43,3 +43,6 @@ Thumbs.db
 
 # Non-canonical duplicate mirror kept out of initial repo history
 /praxis-cadcam-contracts/
+
+# Generated CAD/CAM cache artifacts
+/cache/
