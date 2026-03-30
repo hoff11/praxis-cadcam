@@ -16,6 +16,8 @@ addFormats(ajv);
 
 const deploymentCompilerSchema = loadJson('./boundary/schemas/deployment-compiler.schema.json');
 const validateDeploymentCompiler = ajv.compile(deploymentCompilerSchema);
+const manifestSchema = loadJson('./boundary/schemas/manifest.schema.json');
+const validateManifest = ajv.compile(manifestSchema);
 
 let failures = 0;
 
@@ -99,6 +101,19 @@ assertEqual(
   'cross-repo fanuc-3x-vmc digest vector',
   crossRepoComputedDigest,
   'sha256:4049ced787cffbeff001700d0078eccb1bcc4d08c36533b1423eff0d804d043e'
+);
+
+console.log('\nmanifest schema');
+console.log('---------------');
+assertValid(
+  'manifest.valid.json',
+  validateManifest,
+  loadJson('./boundary/fixtures/manifest.valid.json')
+);
+assertInvalid(
+  'manifest.missing-hashAlgorithm.invalid.json',
+  validateManifest,
+  loadJson('./boundary/fixtures/manifest.missing-hashAlgorithm.invalid.json')
 );
 
 if (failures > 0) {

@@ -1,6 +1,6 @@
 {
   "manifestVersion": "1.0.0",
-  "artifactSetId": "duplicate-paths-bundle",
+  "artifactSetId": "vmc-3ax-bundle",
   "artifactSetVersion": "1.0.0",
   "generatedAt": "2026-03-30T12:00:00Z",
   "generator": {
@@ -12,12 +12,24 @@
     {
       "path": "machine-definition.json",
       "sha": "1111111111111111111111111111111111111111111111111111111111111111",
-      "sizeBytes": 100
+      "sizeBytes": 1024,
+      "mediaType": "application/json"
     },
     {
-      "path": "machine-definition.json",
+      "path": "capability-profile.json",
       "sha": "2222222222222222222222222222222222222222222222222222222222222222",
-      "sizeBytes": 200
+      "sizeBytes": 2048,
+      "mediaType": "application/json"
     }
-  ]
+  ],
+  "sourceRefs": {
+    "machineDefinition": {
+      "machineId": "vmc-3ax",
+      "machineVersion": "1.0.0"
+    },
+    "deploymentCompiler": {
+      "deploymentCompilerId": "vmc-3ax-fanuc31i",
+      "deploymentCompilerVersion": "1.0.0"
+    }
+  }
 }
