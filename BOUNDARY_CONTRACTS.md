@@ -196,3 +196,9 @@ Legacy TypeScript contract mirrors were moved out of active architecture into:
 - `legacy_ts_reference/packages_quarantine_2026_03_27/packages/machines/src/definitions.ts`
 
 These are non-canonical quarantine references only. Boundary truth comes from the schemas in `contracts/boundary/schemas` and C++ validation/export paths.
+
+## Mirror Sync Rule
+
+- `praxis-cadcam-contracts/boundary/schemas` is a generated local mirror, not a hand-edited source of truth.
+- Refresh the mirror with `npm --prefix contracts run sync-mirror`.
+- CI verifies the generator output against `contracts/boundary/schemas` so mirror drift is caught even though the mirror directory is ignored.

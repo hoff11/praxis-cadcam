@@ -1,6 +1,7 @@
 # CMake build output (root-level build tree)
 /build/
 /engine/build/
+/engine/build-make/
 CMakeCache.txt
 CMakeFiles/
 CTestTestfile.cmake
