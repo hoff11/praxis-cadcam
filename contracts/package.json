@@ -1,0 +1,13 @@
+{
+  "name": "praxis-cadcam-contracts",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "validate": "node validate-schemas.js"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1"
+  }
+}

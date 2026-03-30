@@ -2,11 +2,12 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://praxis.cadcam/schemas/deployment-compiler/v1.0.0",
   "title": "Deployment Compiler",
-  "description": "Frozen governed compile context used repeatedly for production translation.",
+  "description": "Frozen governed compile context used repeatedly for production translation. The three fields deploymentCompilerId, deploymentCompilerVersion, and digest map directly to deploymentCompilerRef.id, deploymentCompilerRef.version, and deploymentCompilerRef.digest in governed compile requests.",
   "type": "object",
   "required": [
     "deploymentCompilerId",
     "deploymentCompilerVersion",
+    "digest",
     "machineDeploymentRef",
     "capabilityProfileRef",
     "policyPackRef",
@@ -17,11 +18,18 @@
   "properties": {
     "deploymentCompilerId": {
       "type": "string",
-      "pattern": "^[a-z0-9\\-]+$"
+      "pattern": "^[a-z0-9\\-]+$",
+      "description": "Canonical identity for this deployment compiler. Maps to deploymentCompilerRef.id in governed compile requests."
     },
     "deploymentCompilerVersion": {
       "type": "string",
-      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Version of this deployment compiler artifact. Maps to deploymentCompilerRef.version in governed compile requests."
+    },
+    "digest": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$",
+      "description": "Canonical digest of the frozen deployment-compiler payload. Maps to deploymentCompilerRef.digest in governed compile requests. Format: sha256:<64 lowercase hex>. Computed at freeze time and immutable."
     },
     "machineDeploymentRef": {
       "type": "object",
@@ -112,12 +120,9 @@
     },
     "compilerRequestMapping": {
       "type": "object",
-      "required": ["machineCapabilityId", "targetSelection"],
+      "description": "Governed compile request target echo. Contains only targetSelection — machineCapabilityId is forbidden in governed mode and must not appear here.",
+      "required": ["targetSelection"],
       "properties": {
-        "machineCapabilityId": {
-          "type": "string",
-          "pattern": "^[a-z0-9\\-]+$"
-        },
         "targetSelection": {
           "type": "object",
           "required": ["machineProfile", "policyPack", "controllerBase"],
