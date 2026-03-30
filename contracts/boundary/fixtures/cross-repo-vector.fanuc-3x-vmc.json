@@ -1,0 +1,48 @@
+{
+  "deploymentCompilerId": "fanuc-3x-vmc-demo-shop-compiler",
+  "deploymentCompilerVersion": "1.0.0",
+  "machineDeploymentRef": {
+    "deploymentId": "fanuc-3x-vmc-demo-shop",
+    "deploymentVersion": "1.0.0"
+  },
+  "capabilityProfileRef": {
+    "capabilityId": "vmc-3axis-generic",
+    "capabilityVersion": "1.0.0"
+  },
+  "policyPackRef": {
+    "policyPackId": "shop-safe-default",
+    "policyPackVersion": "1.0.0"
+  },
+  "controllerBaseRef": {
+    "controllerBaseId": "fanuc-base",
+    "controllerBaseVersion": "1.0.0"
+  },
+  "compilerPins": {
+    "compilerVersion": "0.1.0",
+    "compilerBuild": "scenario",
+    "irVersion": "1.0.0",
+    "emitterVersion": "current"
+  },
+  "compilerRequestMapping": {
+    "machineCapabilityId": "vmc-3axis-generic",
+    "targetSelection": {
+      "machineProfile": {
+        "id": "vmc-3axis-generic",
+        "version": "1.0.0"
+      },
+      "policyPack": {
+        "id": "shop-safe-default",
+        "version": "1.0.0"
+      },
+      "controllerBase": {
+        "id": "fanuc-base",
+        "version": "1.0.0"
+      }
+    }
+  },
+  "frozen": {
+    "isFrozen": true,
+    "frozenAt": "2026-03-27T23:19:08Z",
+    "frozenBy": "compiler-machine-deployment-scenario"
+  }
+}

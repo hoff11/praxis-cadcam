@@ -1,23 +1,17 @@
 {
   "manifestVersion": "1.0.0",
-  "artifactSetId": "duplicate-paths-bundle",
+  "artifactSetId": "vmc-3ax-bundle",
   "artifactSetVersion": "1.0.0",
   "generatedAt": "2026-03-30T12:00:00Z",
   "generator": {
     "name": "praxis-cadcam-cli",
     "version": "0.1.0"
   },
-  "hashAlgorithm": "sha256",
   "artifacts": [
     {
       "path": "machine-definition.json",
       "sha": "1111111111111111111111111111111111111111111111111111111111111111",
-      "sizeBytes": 100
-    },
-    {
-      "path": "machine-definition.json",
-      "sha": "2222222222222222222222222222222222222222222222222222222222222222",
-      "sizeBytes": 200
+      "sizeBytes": 1024
     }
   ]
 }

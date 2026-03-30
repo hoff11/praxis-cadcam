@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "1.0.0",
+  "deploymentCompilerId": "vmc-3ax-fanuc31i",
+  "deploymentCompilerVersion": "1.0.0",
+  "machineDeploymentRef": {
+    "deploymentId": "shop-floor-a-unit1",
+    "deploymentVersion": "1.0.0"
+  },
+  "capabilityProfileRef": {
+    "capabilityId": "vmc-3ax-fanuc31i-cap",
+    "capabilityVersion": "1.0.0"
+  },
+  "policyPackRef": {
+    "policyPackId": "standard-milling",
+    "policyPackVersion": "2.1.0"
+  },
+  "controllerBaseRef": {
+    "controllerBaseId": "fanuc31i-base",
+    "controllerBaseVersion": "1.0.0"
+  },
+  "compilerPins": {
+    "compilerVersion": "0.9.0",
+    "compilerBuild": "build-20260110",
+    "irVersion": "1.0.0",
+    "emitterVersion": "1.2.0"
+  },
+  "compilerRequestMapping": {
+    "targetSelection": {
+      "machineProfile": {
+        "id": "vmc-3ax",
+        "version": "1.0.0"
+      },
+      "policyPack": {
+        "id": "standard-milling",
+        "version": "2.1.0"
+      },
+      "controllerBase": {
+        "id": "fanuc31i-base",
+        "version": "1.0.0"
+      }
+    }
+  },
+  "frozen": {
+    "isFrozen": true,
+    "frozenAt": "2026-01-10T14:30:00Z",
+    "frozenBy": "platform-automation"
+  }
+}

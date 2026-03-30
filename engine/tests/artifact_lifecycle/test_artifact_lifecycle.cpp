@@ -109,7 +109,17 @@ TEST_CASE("artifact lifecycle generates valid bundle", "[artifact]") {
     REQUIRE(praxis::commands::handle_validate_artifact("manifest", manifest.string(), true) == 0);
 
     const auto manifest_json = read_json(manifest);
+    REQUIRE(manifest_json.at("manifestVersion") == "1.0.0");
+    REQUIRE(manifest_json.at("artifactSetVersion") == "1.0.0");
+    REQUIRE(manifest_json.at("hashAlgorithm") == "sha256");
+    REQUIRE(manifest_json.contains("generator"));
+    REQUIRE(manifest_json.at("generator").at("name") == "praxis-cadcam-cli");
     REQUIRE(manifest_json.at("artifacts").size() == 2);
+    for (const auto& artifact : manifest_json.at("artifacts")) {
+        REQUIRE(artifact.contains("path"));
+        REQUIRE(artifact.contains("sha"));
+        REQUIRE(artifact.contains("sizeBytes"));
+    }
 }
 
 TEST_CASE("reject unsupported PKM version during export", "[artifact]") {

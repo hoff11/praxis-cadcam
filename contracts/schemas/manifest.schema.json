@@ -1,40 +1,97 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://praxis.dev/schemas/manifest.schema.json",
-  "title": "manifest",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://praxis.cadcam/schemas/manifest/v1.0.0",
+  "title": "Artifact Manifest",
+  "description": "Required manifest for any exported or frozen artifact set.",
   "type": "object",
-  "additionalProperties": false,
-  "required": ["schemaVersion", "bundleId", "artifacts"],
+  "required": [
+    "manifestVersion",
+    "artifactSetId",
+    "artifactSetVersion",
+    "generatedAt",
+    "generator",
+    "hashAlgorithm",
+    "artifacts"
+  ],
   "properties": {
-    "schemaVersion": {
-      "const": "1.0"
-    },
-    "bundleId": {
+    "manifestVersion": {
       "type": "string",
-      "minLength": 1
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "artifactSetId": {
+      "type": "string",
+      "pattern": "^[a-z0-9\\-]+$"
+    },
+    "artifactSetVersion": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "generator": {
+      "type": "object",
+      "required": ["name", "version"],
+      "properties": {
+        "name": {"type": "string"},
+        "version": {"type": "string"},
+        "build": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "hashAlgorithm": {
+      "type": "string",
+      "enum": ["sha256", "sha512"]
     },
     "artifacts": {
       "type": "array",
       "minItems": 1,
       "items": {
         "type": "object",
-        "additionalProperties": false,
-        "required": ["artifactType", "path", "sha256"],
+        "required": ["path", "sha", "sizeBytes"],
         "properties": {
-          "artifactType": {
-            "type": "string",
-            "enum": ["machine-definition", "capability-profile", "manifest"]
-          },
-          "path": {
-            "type": "string",
-            "minLength": 1
-          },
-          "sha256": {
-            "type": "string",
-            "pattern": "^[0-9a-f]{64}$"
-          }
-        }
+          "path": {"type": "string", "minLength": 1},
+          "sha": {"type": "string", "minLength": 1},
+          "sizeBytes": {"type": "integer", "minimum": 0},
+          "mediaType": {"type": "string"}
+        },
+        "additionalProperties": false
       }
+    },
+    "sourceRefs": {
+      "type": "object",
+      "properties": {
+        "machineDefinition": {
+          "type": "object",
+          "required": ["machineId", "machineVersion"],
+          "properties": {
+            "machineId": {"type": "string", "pattern": "^[a-z0-9\\-]+$"},
+            "machineVersion": {"type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$"}
+          },
+          "additionalProperties": false
+        },
+        "machineDeployment": {
+          "type": "object",
+          "required": ["deploymentId", "deploymentVersion"],
+          "properties": {
+            "deploymentId": {"type": "string", "pattern": "^[a-z0-9\\-]+$"},
+            "deploymentVersion": {"type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$"}
+          },
+          "additionalProperties": false
+        },
+        "deploymentCompiler": {
+          "type": "object",
+          "required": ["deploymentCompilerId", "deploymentCompilerVersion"],
+          "properties": {
+            "deploymentCompilerId": {"type": "string", "pattern": "^[a-z0-9\\-]+$"},
+            "deploymentCompilerVersion": {"type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$"}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
     }
-  }
+  },
+  "additionalProperties": false
 }

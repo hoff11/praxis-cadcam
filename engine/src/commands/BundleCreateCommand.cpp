@@ -1,6 +1,9 @@
 #include "ArtifactCommandCommon.hpp"
 #include "praxis/ArtifactSchema.hpp"
 #include <openssl/sha.h>
+#include <chrono>
+#include <cstdint>
+#include <ctime>
 #include <fstream>
 #include <iomanip>
 #include <iostream>
@@ -40,6 +43,22 @@ std::optional<artifacts::ArtifactType> artifact_type_for_filename(const std::str
     return std::nullopt;
 }
 
+std::string utc_now_iso8601() {
+    const auto now = std::chrono::system_clock::now();
+    const std::time_t t = std::chrono::system_clock::to_time_t(now);
+
+    std::tm tm_utc{};
+#ifdef _WIN32
+    gmtime_s(&tm_utc, &t);
+#else
+    gmtime_r(&t, &tm_utc);
+#endif
+
+    std::ostringstream output;
+    output << std::put_time(&tm_utc, "%Y-%m-%dT%H:%M:%SZ");
+    return output.str();
+}
+
 } // namespace
 
 int handle_bundle_create(const std::string& input_dir, const std::string& out_arg, bool json_output) {
@@ -68,9 +87,9 @@ int handle_bundle_create(const std::string& input_dir, const std::string& out_ar
         }
 
         artifacts_json.push_back({
-            {"artifactType", artifacts::artifact_type_to_string(*parsed_type)},
             {"path", fs::relative(entry.path(), input_root).generic_string()},
-            {"sha256", compute_file_sha256(entry.path())}
+            {"sha", compute_file_sha256(entry.path())},
+            {"sizeBytes", static_cast<std::uint64_t>(fs::file_size(entry.path()))}
         });
         ++artifact_count;
     }
@@ -80,9 +99,17 @@ int handle_bundle_create(const std::string& input_dir, const std::string& out_ar
         return 4;
     }
 
+    const std::string bundle_id = input_root.filename().string().empty() ? "bundle" : input_root.filename().string();
     nlohmann::json manifest = {
-        {"schemaVersion", "1.0"},
-        {"bundleId", input_root.filename().string().empty() ? "bundle" : input_root.filename().string()},
+        {"manifestVersion", "1.0.0"},
+        {"artifactSetId", bundle_id},
+        {"artifactSetVersion", "1.0.0"},
+        {"generatedAt", utc_now_iso8601()},
+        {"generator", {
+            {"name", "praxis-cadcam-cli"},
+            {"version", "0.1.0"}
+        }},
+        {"hashAlgorithm", "sha256"},
         {"artifacts", artifacts_json}
     };
 

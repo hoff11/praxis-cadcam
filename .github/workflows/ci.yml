@@ -50,3 +50,27 @@ jobs:
           if-no-files-found: warn
           path: |
             build/praxis-cadcam-cli
+
+  contract-schema-validation:
+    name: Contract Schema Validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: contracts/package-lock.json
+
+      - name: Install dependencies
+        working-directory: contracts
+        run: npm ci
+
+      - name: Validate contract schemas
+        working-directory: contracts
+        run: npm run validate
