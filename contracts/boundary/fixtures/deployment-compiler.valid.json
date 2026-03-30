@@ -1,7 +1,8 @@
 {
+  "schemaVersion": "1.0.0",
   "deploymentCompilerId": "vmc-3ax-fanuc31i",
   "deploymentCompilerVersion": "1.0.0",
-  "digest": "sha256:a3f8c2e1d4b5f9e0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4",
+  "digest": "sha256:39ee52ebe45176c407c39d5a7f469c310d41ef2df94fca25b03f163d7993c226",
   "machineDeploymentRef": {
     "deploymentId": "shop-floor-a-unit1",
     "deploymentVersion": "1.0.0"
@@ -21,6 +22,7 @@
   "compilerPins": {
     "compilerVersion": "0.9.0",
     "compilerBuild": "build-20260110",
+    "irVersion": "1.0.0",
     "emitterVersion": "1.2.0"
   },
   "compilerRequestMapping": {

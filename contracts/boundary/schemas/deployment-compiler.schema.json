@@ -5,6 +5,7 @@
   "description": "Frozen governed compile context used repeatedly for production translation. The three fields deploymentCompilerId, deploymentCompilerVersion, and digest map directly to deploymentCompilerRef.id, deploymentCompilerRef.version, and deploymentCompilerRef.digest in governed compile requests.",
   "type": "object",
   "required": [
+    "schemaVersion",
     "deploymentCompilerId",
     "deploymentCompilerVersion",
     "digest",
@@ -16,6 +17,11 @@
     "frozen"
   ],
   "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "1.0.0",
+      "description": "Schema version for this deployment-compiler artifact. Required and fixed to keep digest projection stable."
+    },
     "deploymentCompilerId": {
       "type": "string",
       "pattern": "^[a-z0-9\\-]+$",
@@ -29,7 +35,7 @@
     "digest": {
       "type": "string",
       "pattern": "^sha256:[a-f0-9]{64}$",
-      "description": "Canonical digest of the frozen deployment-compiler payload. Maps to deploymentCompilerRef.digest in governed compile requests. Format: sha256:<64 lowercase hex>. Computed at freeze time and immutable."
+      "description": "Canonical digest of the frozen deployment-compiler semantic projection. Maps to deploymentCompilerRef.digest in governed compile requests. Format: sha256:<64 lowercase hex>. Included projection fields: deploymentCompilerId, deploymentCompilerVersion, schemaVersion, machineDeploymentRef(deploymentId/deploymentVersion), capabilityProfileRef(capabilityId/capabilityVersion plus optional digest/checksum/hash), controllerBaseRef(controllerBaseId/controllerBaseVersion plus optional digest/checksum/hash), policyPackRef(policyPackId/policyPackVersion plus optional digest/checksum/hash), compilerPins(compilerVersion/compilerBuild/irVersion/emitterVersion), compilerRequestMapping(machineCapabilityId if present and targetSelection layered id/version refs), frozen(isFrozen). Excluded from projection: frozenAt, frozenBy, trustedOverrides, publication wrappers, timestamps, and non-semantic metadata."
     },
     "machineDeploymentRef": {
       "type": "object",
@@ -93,7 +99,7 @@
     },
     "compilerPins": {
       "type": "object",
-      "required": ["compilerVersion", "compilerBuild", "emitterVersion"],
+      "required": ["compilerVersion", "compilerBuild", "irVersion", "emitterVersion"],
       "properties": {
         "compilerVersion": {"type": "string"},
         "compilerBuild": {"type": "string"},
@@ -163,6 +169,7 @@
     "frozen": {
       "type": "object",
       "required": ["isFrozen", "frozenAt"],
+      "description": "Freeze-state metadata. Digest is valid only for frozen artifacts and must be computed from projection containing frozen.isFrozen only.",
       "properties": {
         "isFrozen": {"type": "boolean", "const": true},
         "frozenAt": {"type": "string", "format": "date-time"},
