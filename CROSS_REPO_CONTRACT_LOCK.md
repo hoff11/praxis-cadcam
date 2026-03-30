@@ -11,6 +11,10 @@ This file locks the contract boundary between praxis-cadcam and praxis-compiler.
 - deployment-compiler
 - manifest
 
+Owner-of-record note:
+- deployment-compiler and manifest are CADCAM-owned artifacts.
+- Cross-pillar review or approval may be required operationally, but it does not create dual ownership or transfer canonical authority to praxis-compiler.
+
 2. praxis-compiler-owned artifacts:
 - controller-base
 - policy-pack
@@ -45,6 +49,7 @@ This file locks the contract boundary between praxis-cadcam and praxis-compiler.
 4. Deployment compiler rule:
 - deployment-compiler must include explicit capabilityProfileRef.
 - deployment-compiler is the reusable frozen external authority.
+- CADCAM owns the artifact definition, freeze path, and publication path for deployment-compiler.
 
 5. Resolved target rule:
 - resolved-target is compiler-internal or compiler-emitted normalized resolution derived from deployment-compiler and selected assets.

@@ -19,6 +19,7 @@ flowchart LR
 praxis-cadcam owns:
 - Machine Definition
 - Deployment composition inputs
+- Machine deployment and deployment-compiler artifact definition/publication
 - Controller compatibility declarations
 - Machine-specific constraints
 
@@ -44,6 +45,7 @@ praxis-compiler owns:
   - controller base
   - trusted overrides
   - compiler/emitter pins
+- CADCAM is the owner-of-record for this artifact and its publication flow; any cross-pillar approval is a workflow gate only.
 
 4. Compile Execution Record
 - Per-run evidence produced by praxis-compiler for one source input execution.

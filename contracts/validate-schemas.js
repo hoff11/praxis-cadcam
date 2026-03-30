@@ -11,6 +11,10 @@ function loadJson(relPath) {
   return JSON.parse(readFileSync(resolve(__dirname, relPath), 'utf-8'));
 }
 
+function loadText(relPath) {
+  return readFileSync(resolve(__dirname, '..', relPath), 'utf-8');
+}
+
 const ajv = new Ajv({ allErrors: true, allowUnionTypes: true });
 addFormats(ajv);
 
@@ -51,6 +55,26 @@ function assertEqual(label, actual, expected) {
     console.error(`  FAIL  ${label}`);
     console.error(`        expected: ${expected}`);
     console.error(`        actual:   ${actual}`);
+    failures++;
+  }
+}
+
+function assertContains(label, text, expected) {
+  if (text.includes(expected)) {
+    console.log(`  PASS  ${label}`);
+  } else {
+    console.error(`  FAIL  ${label}`);
+    console.error(`        missing text: ${expected}`);
+    failures++;
+  }
+}
+
+function assertNotContains(label, text, forbidden) {
+  if (!text.includes(forbidden)) {
+    console.log(`  PASS  ${label}`);
+  } else {
+    console.error(`  FAIL  ${label}`);
+    console.error(`        forbidden text present: ${forbidden}`);
     failures++;
   }
 }
@@ -114,6 +138,39 @@ assertInvalid(
   'manifest.missing-hashAlgorithm.invalid.json',
   validateManifest,
   loadJson('./boundary/fixtures/manifest.missing-hashAlgorithm.invalid.json')
+);
+
+console.log('\nownership wording');
+console.log('-----------------');
+
+const boundaryContracts = loadText('BOUNDARY_CONTRACTS.md');
+const crossRepoLock = loadText('CROSS_REPO_CONTRACT_LOCK.md');
+const deploymentLifecycle = loadText('DEPLOYMENT_LIFECYCLE.md');
+
+assertContains(
+  'BOUNDARY_CONTRACTS deployment-compiler owner-of-record',
+  boundaryContracts,
+  'Owner: praxis-cadcam / CADCAM boundary owner-of-record'
+);
+assertContains(
+  'BOUNDARY_CONTRACTS approval-only workflow note',
+  boundaryContracts,
+  'approval may gate release workflow, but approval does not transfer schema ownership or artifact authorship away from CADCAM'
+);
+assertContains(
+  'CROSS_REPO_CONTRACT_LOCK owner-of-record note',
+  crossRepoLock,
+  'deployment-compiler and manifest are CADCAM-owned artifacts.'
+);
+assertContains(
+  'DEPLOYMENT_LIFECYCLE deployment-compiler ownership note',
+  deploymentLifecycle,
+  'CADCAM is the owner-of-record for this artifact and its publication flow; any cross-pillar approval is a workflow gate only.'
+);
+assertNotContains(
+  'BOUNDARY_CONTRACTS no platform-boundary owner label remains',
+  boundaryContracts,
+  'Owner: platform boundary'
 );
 
 if (failures > 0) {
