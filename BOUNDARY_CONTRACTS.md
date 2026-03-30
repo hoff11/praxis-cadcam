@@ -50,24 +50,25 @@ Compile request alignment (compiler side):
 - Canonical schema: `contracts/boundary/schemas/machine-definition.schema.json`
 
 2. Machine Deployment Contract
-- Owner: platform boundary (authored from machine definition plus shop deployment choices)
+- Owner: praxis-cadcam / CADCAM boundary owner-of-record
 - Purpose: shop-specific installation context for a concrete machine instance
 - Canonical schema: `contracts/boundary/schemas/machine-deployment.schema.json`
 
 3. Capability Profile Contract
-- Owner: boundary spec (produced by praxis-cadcam, consumed by praxis-compiler)
+- Owner: praxis-cadcam / CADCAM boundary owner-of-record
 - Purpose: compile-relevant limits/capabilities/constraints and stable capability identity
 - Canonical schema: `contracts/boundary/schemas/capability-profile.schema.json`
 - Rule: capability profile is a derived, compile-relevant projection of machine deployment, not an independent authored artifact.
 - Rule: capability profile declares controller compatibility, not deployment-specific controller base identity.
 
 4. Deployment Compiler Contract
-- Owner: platform boundary (frozen governed compile context)
+- Owner: praxis-cadcam / CADCAM boundary owner-of-record
 - Purpose: reusable authority object combining machine deployment, controller base, policy pack, trusted overrides, and compiler pins
 - Canonical schema: `contracts/boundary/schemas/deployment-compiler.schema.json`
+- Rule: cross-pillar review or approval may be required by workflow, but does not change CADCAM owner-of-record status for the artifact definition and publication path.
 
 5. Policy Pack Contract
-- Owner: compiler/platform boundary (praxis-compiler canonical)
+- Owner: praxis-compiler
 - Purpose: policy identity and policy payload references
 - Compiler remains semantic enforcer
 - Rule: cadcam references policy-pack identity but does not author policy semantics.
@@ -77,7 +78,7 @@ Compile request alignment (compiler side):
 - Purpose: run-level selection (`machineCapabilityId`, `targetSelection`, policies)
 
 7. Artifact Manifest Contract
-- Owner: boundary packaging layer
+- Owner: praxis-cadcam / CADCAM boundary owner-of-record
 - Purpose: deterministic hashing, provenance, and reproducibility metadata for exported/frozen artifact sets
 - Canonical schema: `contracts/boundary/schemas/manifest.schema.json`
 
@@ -118,6 +119,8 @@ praxis-compiler owns:
 - Engineering truth belongs to praxis-cadcam and is exported.
 - Compile truth belongs to praxis-compiler and is consumed.
 - Governance truth belongs to policy/orchestration layer.
+- Deployment-compiler publication and manifest publication are CADCAM owner-of-record responsibilities.
+- Cross-pillar approval may gate release workflow, but approval does not transfer schema ownership or artifact authorship away from CADCAM.
 - Compiler must not consume raw PKM directly as the public compile boundary.
 
 ## Non-Negotiable Enforcement Rules
@@ -193,3 +196,9 @@ Legacy TypeScript contract mirrors were moved out of active architecture into:
 - `legacy_ts_reference/packages_quarantine_2026_03_27/packages/machines/src/definitions.ts`
 
 These are non-canonical quarantine references only. Boundary truth comes from the schemas in `contracts/boundary/schemas` and C++ validation/export paths.
+
+## Mirror Sync Rule
+
+- `praxis-cadcam-contracts/boundary/schemas` is a generated local mirror, not a hand-edited source of truth.
+- Refresh the mirror with `npm --prefix contracts run sync-mirror`.
+- CI verifies the generator output against `contracts/boundary/schemas` so mirror drift is caught even though the mirror directory is ignored.

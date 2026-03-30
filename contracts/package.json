@@ -5,7 +5,9 @@
   "private": true,
   "scripts": {
     "validate": "node validate-schemas.js",
-    "digest": "node compute-digest.js"
+    "digest": "node compute-digest.js",
+    "sync-mirror": "node sync-mirror.js",
+    "verify-mirror": "node verify-mirror-sync.js"
   },
   "dependencies": {
     "ajv": "^8.17.1",
