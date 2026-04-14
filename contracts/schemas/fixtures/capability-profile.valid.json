@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "1.0",
+  "capabilityId": "vmc_3axis_generic",
+  "capabilityVersion": "1.0.0",
+  "machineCapabilityId": "vmc_3axis_generic",
+  "id": "vmc_3axis_generic",
+  "version": "1.0.0",
+  "machineDefinitionRef": {
+    "machineId": "vmc_3axis_generic",
+    "schemaVersion": "1.0"
+  },
+  "units": "mm",
+  "spindle": {
+    "rpmMin": 1000,
+    "rpmMax": 12000,
+    "orientationCapability": "fixed-z"
+  },
+  "sourceProvenance": {
+    "machineDefinitionSource": {
+      "inputType": "pkm",
+      "inputPath": "/tmp/model.pkm",
+      "pkmVersion": "0.2"
+    },
+    "fidelity": {
+      "level": "semantic-wrap-scaffold",
+      "truthLevel": "scaffolded-not-step-derived"
+    },
+    "constraintSource": {
+      "source": "published-haas-vf4-base-model",
+      "evidence": "haas-vf-series-50x20x25-and-vf4-8p1k",
+      "lastAlignedAt": "2026-04-14"
+    }
+  },
+  "kinematicsSummary": {
+    "bodyCount": 3,
+    "jointCount": 1,
+    "axisIds": ["X"],
+    "axisTypes": ["prismatic"]
+  }
+}

@@ -16,6 +16,34 @@ std::string derive_capability_version(const nlohmann::json& machine_definition) 
     return "1.0.0";
 }
 
+nlohmann::json build_source_provenance(const nlohmann::json& machine_definition) {
+    nlohmann::json source = nlohmann::json::object();
+    if (machine_definition.contains("source") && machine_definition["source"].is_object()) {
+        const auto& md_source = machine_definition["source"];
+        if (md_source.contains("inputType")) source["inputType"] = md_source["inputType"];
+        if (md_source.contains("inputPath")) source["inputPath"] = md_source["inputPath"];
+        if (md_source.contains("pkmVersion")) source["pkmVersion"] = md_source["pkmVersion"];
+    }
+
+    nlohmann::json fidelity = nlohmann::json::object();
+    nlohmann::json constraint_source = nlohmann::json::object();
+    if (machine_definition.contains("metadata") && machine_definition["metadata"].is_object()) {
+        const auto& md = machine_definition["metadata"];
+        if (md.contains("fidelity")) fidelity["level"] = md["fidelity"];
+        if (md.contains("truthLevel")) fidelity["truthLevel"] = md["truthLevel"];
+        if (md.contains("constraintSource")) constraint_source["source"] = md["constraintSource"];
+        if (md.contains("constraintEvidence")) constraint_source["evidence"] = md["constraintEvidence"];
+        if (md.contains("lastAlignedAt")) constraint_source["lastAlignedAt"] = md["lastAlignedAt"];
+    }
+
+    nlohmann::json provenance = {
+        {"machineDefinitionSource", source}
+    };
+    if (!fidelity.empty()) provenance["fidelity"] = fidelity;
+    if (!constraint_source.empty()) provenance["constraintSource"] = constraint_source;
+    return provenance;
+}
+
 nlohmann::json build_capability_profile(const nlohmann::json& machine_definition) {
     const std::string capability_id = machine_definition.at("machineId").get<std::string>();
     const std::string capability_version = derive_capability_version(machine_definition);
@@ -39,6 +67,12 @@ nlohmann::json build_capability_profile(const nlohmann::json& machine_definition
             {"schemaVersion", machine_definition.at("schemaVersion")}
         }},
         {"units", machine_definition.at("units")},
+        {"spindle", {
+            {"rpmMin", machine_definition.at("spindle").at("rpmMin")},
+            {"rpmMax", machine_definition.at("spindle").at("rpmMax")},
+            {"orientationCapability", machine_definition.at("spindle").at("orientationCapability")}
+        }},
+        {"sourceProvenance", build_source_provenance(machine_definition)},
         {"kinematicsSummary", {
             {"bodyCount", machine_definition.at("kinematics").at("bodies").size()},
             {"jointCount", machine_definition.at("kinematics").at("joints").size()},

@@ -13,6 +13,7 @@
     "version",
     "machineDefinitionRef",
     "units",
+    "spindle",
     "kinematicsSummary"
   ],
   "properties": {
@@ -57,6 +58,85 @@
     "units": {
       "type": "string",
       "enum": ["mm"]
+    },
+    "spindle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rpmMin", "rpmMax", "orientationCapability"],
+      "properties": {
+        "rpmMin": {
+          "type": "number",
+          "minimum": 0
+        },
+        "rpmMax": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "orientationCapability": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "sourceProvenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["machineDefinitionSource"],
+      "properties": {
+        "machineDefinitionSource": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["inputType", "inputPath", "pkmVersion"],
+          "properties": {
+            "inputType": {
+              "type": "string",
+              "minLength": 1
+            },
+            "inputPath": {
+              "type": "string",
+              "minLength": 1
+            },
+            "pkmVersion": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "fidelity": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["level", "truthLevel"],
+          "properties": {
+            "level": {
+              "type": "string",
+              "minLength": 1
+            },
+            "truthLevel": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "constraintSource": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["source", "evidence"],
+          "properties": {
+            "source": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence": {
+              "type": "string",
+              "minLength": 1
+            },
+            "lastAlignedAt": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
     },
     "kinematicsSummary": {
       "type": "object",
