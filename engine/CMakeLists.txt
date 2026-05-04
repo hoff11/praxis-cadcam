@@ -88,6 +88,7 @@ set(SOURCES
     src/intents/CreateBox.cpp
     src/intents/AttachFaceToFace.cpp
     src/intents/ExtractBodies.cpp
+    src/intents/InspectAssembly.cpp
     src/OCCTInspector.cpp
     # src/Selector.cpp  # LEGACY: Removed - replaced by SelectorParser.cpp (C.4) + SelectorResolver.cpp (C.5)
     src/SelectorParser.cpp
@@ -126,6 +127,9 @@ target_link_libraries(praxis-cad
     TKSTEP
     TKSTEPBase
     TKSTEPAttr
+    TKCAF
+    TKXCAF
+    TKXDESTEP
     TKMesh      # Sprint 12: STL meshing
     TKSTL       # Sprint 12: STL I/O
     stdc++fs  # C++17 filesystem
@@ -143,6 +147,9 @@ target_link_libraries(praxis-cadcam
     TKSTEP
     TKSTEPBase
     TKSTEPAttr
+    TKCAF
+    TKXCAF
+    TKXDESTEP
     TKMesh
     TKSTL
     stdc++fs
@@ -150,12 +157,7 @@ target_link_libraries(praxis-cadcam
     nlohmann_json::nlohmann_json
 )
 
-# Add TKXDESTEP if available (optional for STEP)
-find_library(TKXDESTEP_LIB TKXDESTEP)
-if(TKXDESTEP_LIB)
-    target_link_libraries(praxis-cad TKXDESTEP)
-    target_link_libraries(praxis-cadcam TKXDESTEP)
-endif()
+# TKXDESTEP now linked unconditionally above
 
 # Compiler warnings
 if(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")

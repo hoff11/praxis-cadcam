@@ -76,6 +76,9 @@ void printUsage(bool is_cadcam = false) {
     std::cout << "                  [--param fidelity=medium]\n\n";
     std::cout << "  Heal geometry:\n";
     std::cout << "    ./praxis-cad --intent HealAndNormalize --input <step_file> --out <output_dir>\n\n";
+    std::cout << "  Extract bodies (H1):\n";
+    std::cout << "    ./praxis-cadcam --intent ExtractBodies --input <step_file> --out <output_dir>\n";
+    std::cout << "                  [--param verbose_step_write=true]\n\n";
     std::cout << "  Cache control:\n";
     std::cout << "    --no-cache           Disable execution cache (force fresh execution)\n";
     std::cout << "    --clear-cache        Clear cache directory before execution\n";

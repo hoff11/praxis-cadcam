@@ -36,6 +36,10 @@ IntentResult IntentRouter::execute(const IntentRequest& request) {
         std::cout << "Executing ExtractBodies...\n";
         extern IntentResult extractBodies(const IntentRequest& request);
         result = extractBodies(request);
+    } else if (request.intent_name == "InspectAssembly") {
+        std::cout << "Executing InspectAssembly...\n";
+        extern IntentResult inspectAssembly(const IntentRequest& request);
+        result = inspectAssembly(request);
     } else if (request.intent_name == "CreateBox") {
         std::cout << "Executing CreateBox (micro-intent)...\n";
         extern IntentResult createBoxIntent(const IntentRequest& request);
