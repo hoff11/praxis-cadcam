@@ -32,6 +32,10 @@ IntentResult IntentRouter::execute(const IntentRequest& request) {
         result = executeHeal(request);
     } else if (request.intent_name == "BuildFromRecipe") {
         result = executeBuildFromRecipe(request);
+    } else if (request.intent_name == "ExtractBodies") {
+        std::cout << "Executing ExtractBodies...\n";
+        extern IntentResult extractBodies(const IntentRequest& request);
+        result = extractBodies(request);
     } else if (request.intent_name == "CreateBox") {
         std::cout << "Executing CreateBox (micro-intent)...\n";
         extern IntentResult createBoxIntent(const IntentRequest& request);

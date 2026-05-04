@@ -87,6 +87,7 @@ set(SOURCES
     src/intents/BuildFromRecipe.cpp
     src/intents/CreateBox.cpp
     src/intents/AttachFaceToFace.cpp
+    src/intents/ExtractBodies.cpp
     src/OCCTInspector.cpp
     # src/Selector.cpp  # LEGACY: Removed - replaced by SelectorParser.cpp (C.4) + SelectorResolver.cpp (C.5)
     src/SelectorParser.cpp
