@@ -9,6 +9,7 @@
 #include "InteractionEmit.hpp"
 #include "InteractionPublic.hpp"
 #include "praxis/Intent.hpp"
+#include "../praxis_test_paths.hpp"
 #include <cassert>
 #include <iostream>
 #include <filesystem>
@@ -25,7 +26,7 @@ namespace fs = std::filesystem;
 static void test_happy_path() {
     std::cout << "Test: Sprint 8 E2E - Happy Path (Exact Match)\n";
     
-    std::string step_path = std::string(TEST_FIXTURE_DIR) + "/box.step";
+    std::string step_path = resolveTestFixtureDir() + "/box.step";
     assert(fs::exists(step_path));
     
     // ENCODE: Load artifact and encode a body reference
@@ -69,7 +70,7 @@ static void test_happy_path() {
 static void test_face_ref_roundtrip() {
     std::cout << "Test: Sprint 8 E2E - FaceRef Roundtrip (Exact Match)\n";
     
-    std::string step_path = std::string(TEST_FIXTURE_DIR) + "/box.step";
+    std::string step_path = resolveTestFixtureDir() + "/box.step";
     assert(fs::exists(step_path));
     
     // ENCODE: Load artifact and encode a face reference
@@ -117,7 +118,7 @@ static void test_face_ref_roundtrip() {
 static void test_edge_ref_roundtrip() {
     std::cout << "Test: Sprint 8 E2E - EdgeRef Roundtrip (Exact Match)\n";
     
-    std::string step_path = std::string(TEST_FIXTURE_DIR) + "/box.step";
+    std::string step_path = resolveTestFixtureDir() + "/box.step";
     assert(fs::exists(step_path));
     
     // ENCODE: Load artifact and encode an edge reference
@@ -182,7 +183,7 @@ static void test_missing() {
 static void test_ambiguous() {
     std::cout << "Test: Sprint 8 E2E - Ambiguous\n";
     
-    std::string step_path = std::string(TEST_FIXTURE_DIR) + "/multi_body.step";
+    std::string step_path = resolveTestFixtureDir() + "/multi_body.step";
     assert(fs::exists(step_path));
     
     // Create a reference with ambiguous signature (multiple bodies might match)
@@ -322,7 +323,7 @@ static void test_deterministic_ordering() {
 static void test_cli_flow() {
     std::cout << "Test: Sprint 8 E2E - Full CLI Flow\n";
     
-    std::string step_path = std::string(TEST_FIXTURE_DIR) + "/box.step";
+    std::string step_path = resolveTestFixtureDir() + "/box.step";
     assert(fs::exists(step_path));
     
     // Step 1: Inspect
