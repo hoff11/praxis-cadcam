@@ -520,14 +520,20 @@ IntentResult extractBodies(const IntentRequest& request) {
                 gb.MakeCompound(gcmp);
                 json members = json::array();
 
+                Bnd_Box group_bbox;
                 for (const SolidEntry* ep : entries) {
                     const SolidEntry& e = *ep;
                     gb.Add(gcmp, e.shape);
+                    BRepBndLib::Add(e.shape, group_bbox);
                     members.push_back({
                         {"id", e.part_name},
                         {"subassembly", e.subasm_name}
                     });
                 }
+
+                double gxmin=0,gymin=0,gzmin=0,gxmax=0,gymax=0,gzmax=0;
+                if (!group_bbox.IsVoid())
+                    group_bbox.Get(gxmin,gymin,gzmin,gxmax,gymax,gzmax);
 
                 // Add named top-level node to normalized motion-view assembly tree.
                 TDF_Label gl = motion_stool->AddShape(gcmp, Standard_False);
@@ -543,6 +549,13 @@ IntentResult extractBodies(const IntentRequest& request) {
                     {"name", group_name},
                     {"solid_count", static_cast<int>(entries.size())},
                     {"assembly_step", "motion_accuracy_simulation/" + group_name + "/assembly.step"},
+                    {"bounds", {
+                        {"min_x",gxmin},{"min_y",gymin},{"min_z",gzmin},
+                        {"max_x",gxmax},{"max_y",gymax},{"max_z",gzmax},
+                        {"centroid_x",(gxmin+gxmax)/2.0},
+                        {"centroid_y",(gymin+gymax)/2.0},
+                        {"centroid_z",(gzmin+gzmax)/2.0}
+                    }},
                     {"members", members}
                 });
             }
@@ -634,6 +647,16 @@ IntentResult extractBodies(const IntentRequest& request) {
             {{"index",5},{"name","tool_changer_system"},{"kind","linked_motion_aux"}},
             {{"index",6},{"name","non_motion_support_group"},{"kind","non_motion_support"}}
         });
+
+        // Emit per-group bounding boxes derived from STEP geometry.
+        // Centroid coordinates can be used as initial joint axis_origin estimates.
+        json group_bounds = json::object();
+        for (const auto& g : manifest["motion_accuracy_groups"]) {
+            const std::string& gn = g.at("name").get_ref<const std::string&>();
+            if (g.contains("bounds"))
+                group_bounds[gn] = g.at("bounds");
+        }
+        h2["group_bounds"] = group_bounds;
         json priorities = json::array();
         for (size_t i = 0; i < std::min<size_t>(40, body_rows.size()); ++i) {
             const auto& b = body_rows[i];
